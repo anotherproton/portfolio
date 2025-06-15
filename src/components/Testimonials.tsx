@@ -27,7 +27,7 @@ const Testimonials = () => {
       name: 'Asha Mewara',
       role: 'Shopify Project Manager',
       company: 'Mahina.co',
-      logo: 'https://via.placeholder.com/150x50?text=Mahina', // Placeholder for company logo
+      logo: 'https://ik.imagekit.io/6cu3kzcxt/Mahina_Logo_330x.avif?updatedAt=1749979000137', // Placeholder for company logo
       image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg', // Placeholder for person's image
       rating: 5,
       text: "Tanuj's expertise in theme development is remarkable. He took our Figma designs and turned them into a high-performing, beautiful theme. The new upsell and bundle features have directly contributed to our AOV growth.",
@@ -38,7 +38,7 @@ const Testimonials = () => {
       name: 'Sarah Slate',
       role: 'Head of E-Commerce',
       company: 'Mum & You',
-      logo: 'https://via.placeholder.com/150x50?text=Mum+%26+You', // Placeholder
+      logo: 'https://ik.imagekit.io/6cu3kzcxt/logo-mumandyoudotcom.webp?updatedAt=1749979000523', // Placeholder
       image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg', // Placeholder
       rating: 5,
       text: "The migration from Magento to Shopify was a massive undertaking, and Tanuj handled it flawlessly. His work on our custom subscription model has been a game-changer for customer retention. A brilliant and reliable developer.",
@@ -49,7 +49,7 @@ const Testimonials = () => {
       name: 'Amit Kumar',
       role: 'Founder',
       company: 'WeMust.com',
-      logo: 'https://via.placeholder.com/150x50?text=WeMust', // Placeholder
+      logo: 'https://ik.imagekit.io/6cu3kzcxt/We_Must_Logo_New.avif?updatedAt=1749979000620', // Placeholder
       image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg', // Placeholder
       rating: 5,
       text: "The custom automation system Tanuj built for us has saved countless hours of manual work. His ability to understand complex requirements and deliver an elegant, effective solution is exactly what we needed.",
@@ -60,7 +60,7 @@ const Testimonials = () => {
       name: 'Kavya Sethi',
       role: 'Manager of E-commerce',
       company: 'Nicobar.com',
-      logo: 'https://via.placeholder.com/150x50?text=Nicobar', // Placeholder
+      logo: 'https://ik.imagekit.io/6cu3kzcxt/nclogo.png?updatedAt=1749978988453', // Placeholder
       image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg', // Placeholder
       rating: 5,
       text: "Tanuj's performance optimizations had a direct impact on our site's speed and user experience. The custom filtering he implemented improved product discovery and our click-through rate saw a significant lift.",
