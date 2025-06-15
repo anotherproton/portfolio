@@ -56,13 +56,13 @@ const Projects = () => {
       link: 'https://mum-uk.myshopify.com',
       metrics: {
         migration: 'Seamless',
-        inventory: 'Real-time Sync',
+        inventory: 'Live Sync',
         theme: 'Fully Custom'
       },
       metricLabels: {
         migration: 'Data Migration',
-        inventory: 'Inventory Sync',
-        theme: 'Custom Theme'
+        inventory: 'Inventory',
+        theme: 'Theme'
       },
       metricIcons: {
         migration: TrendingUp,
@@ -113,7 +113,7 @@ const Projects = () => {
       },
       metricLabels: {
         loadTime: 'Load Time',
-        ctr: 'Click-Through Rate',
+        ctr: 'CTR',
         filtering: 'Advanced Filtering'
       },
       metricIcons: {
