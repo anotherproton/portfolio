@@ -25,7 +25,7 @@ const Projects = () => {
       title: 'Mahina (mahina.co)', // 
       category: 'D2C Brand & AOV Strategy',
       description: 'Built a fully custom theme from a Figma design, focusing on increasing the Average Order Value (AOV) through strategic upsell and bundle integrations. Also enhanced customer service with WhatsApp chat and automated order emails.', // 
-      image: 'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg', // Placeholder image
+      image: 'https://ik.imagekit.io/6cu3kzcxt/Reusable-leakproof-period-underwear-online-_-Mahina-06-15-2025_02_30_PM.png?updatedAt=1749978229279', // Placeholder image
       technologies: ['Shopify', 'UX Design', 'AOV Strategy', 'WhatsApp Integration', 'Theme Optimization'], // 
       metrics: {
         aovBoost: '+28%', // 
@@ -50,7 +50,7 @@ const Projects = () => {
       title: 'Mum & You (mumandyou.com)', // 
       category: 'Magento to Shopify Migration',
       description: 'Led the large-scale migration of a UK brand from Magento to Shopify, ensuring complete data integrity and preserving SEO URLs. Developed a custom subscription model with recurring flows via Shopify APIs and built private apps to sync inventory and user data.', // 
-      image: 'https://images.pexels.com/photos/4210376/pexels-photo-4210376.jpeg', // Placeholder image
+      image: 'https://ik.imagekit.io/6cu3kzcxt/mum-uk-06-15-2025_02_31_PM.png?updatedAt=1749978229304', // Placeholder image
       technologies: ['Shopify', 'Subscription Flows', 'Private Apps', 'SEO', 'Shopify API'], // 
       metrics: {
         migration: 'Seamless',
@@ -75,7 +75,7 @@ const Projects = () => {
       title: 'WeMust (wemust.com)', // 
       category: 'Automation & UX Optimization',
       description: 'Led development of a dynamic order system with a live pricing calculator. Simplified cart and pricing logic to significantly improve checkout rates and developed a custom invoice automation system to drastically reduce manual work.', // 
-      image: 'https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg', // Placeholder image
+      image: 'https://ik.imagekit.io/6cu3kzcxt/Best-Custom-DTF-Transfer-Printer-in-USA-_-We-Must-06-15-2025_02_31_PM.png?updatedAt=1749978229580', // Placeholder image
       technologies: ['Shopify', 'Liquid', 'JavaScript', 'UX Optimization', 'Automation'], // 
       metrics: {
         checkoutRate: '+20%', // 
@@ -100,7 +100,7 @@ const Projects = () => {
       title: 'Nicobar (nicobar.com)', // 
       category: 'Performance & UX',
       description: 'Contributed to a highly visual, brand-heavy theme by optimizing loading times through script deferrals and asset compression. Built custom filtering and sorting to improve product discovery and click-through rates.', // 
-      image: 'https://images.pexels.com/photos/994517/pexels-photo-994517.jpeg', // Placeholder image
+      image: 'https://ik.imagekit.io/6cu3kzcxt/Nicobar-Modern-mindful-India-rooted-designs-06-15-2025_02_33_PM.png?updatedAt=1749978200080', // Placeholder image
       technologies: ['Shopify', 'Liquid', 'Theme Development', 'Performance Optimization', 'UX Design'], // 
       metrics: {
         loadTime: '-42%', // 
