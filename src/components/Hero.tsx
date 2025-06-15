@@ -5,6 +5,7 @@ const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentRole, setCurrentRole] = useState(0);
   const [typedText, setTypedText] = useState('');
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Roles updated to reflect resume summary
   const roles = [
@@ -23,12 +24,19 @@ const Hero = () => {
     'git commit -m "feat: custom theme"'
   ];
 
+  // Logic for the role transition animation
   useEffect(() => {
     setIsVisible(true);
     
     const roleInterval = setInterval(() => {
-      setCurrentRole((prev) => (prev + 1) % roles.length);
-    }, 3000);
+      setIsAnimating(true); // Trigger the fade-out animation
+
+      // Wait for the fade-out animation to complete
+      setTimeout(() => {
+        setCurrentRole((prev) => (prev + 1) % roles.length);
+        setIsAnimating(false); // Trigger the fade-in animation
+      }, 500); // This duration should match the CSS animation duration
+    }, 3000); // Change role every 3 seconds
 
     // Typing animation for code snippets
     let currentSnippet = 0;
@@ -38,7 +46,6 @@ const Hero = () => {
         setTypedText(codeSnippets[currentSnippet].substring(0, currentChar + 1));
         currentChar++;
       } else {
-        // Pause at the end of a snippet before clearing
         setTimeout(() => {
           currentSnippet = (currentSnippet + 1) % codeSnippets.length;
           currentChar = 0;
@@ -53,28 +60,65 @@ const Hero = () => {
     };
   }, []);
 
-  const scrollToNext = () => {
-    const nextSection = document.getElementById('about');
-    nextSection?.scrollIntoView({ behavior: 'smooth' });
-  };
+  // CSS for the new slide-and-fade animation
+  const animationStyles = `
+    @keyframes slide-fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(1em);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  // Metrics updated based on the provided resume
+    @keyframes slide-fade-out {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-1em);
+      }
+    }
+
+    .role-text {
+      display: inline-block;
+      transition: all 0.5s ease-in-out;
+      animation-duration: 0.5s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+    }
+
+    .fade-in {
+      animation-name: slide-fade-in;
+    }
+    
+    .fade-out {
+      animation-name: slide-fade-out;
+    }
+  `;
+
+
   const trustMetrics = [
-    { icon: Award, value: '3+', label: 'Years Experience', color: 'text-yellow-400' }, // 
-    { icon: Code, value: '49+', label: 'Projects Delivered', color: 'text-blue-400' }, // 
-    { icon: Star, value: '27+', label: 'Custom Stores Built', color: 'text-green-400' }, // 
-    { icon: Users, value: 'Top', label: 'D2C & B2B Brands', color: 'text-purple-400' } // 
+    { icon: Award, value: '3+', label: 'Years Experience', color: 'text-yellow-400' },
+    { icon: Code, value: '49+', label: 'Projects Delivered', color: 'text-blue-400' },
+    { icon: Star, value: '27+', label: 'Custom Stores Built', color: 'text-green-400' },
+    { icon: Users, value: 'Top', label: 'D2C & B2B Brands', color: 'text-purple-400' }
   ];
 
   const performanceMetrics = [
-    { label: 'Conversion Boost', value: '37%', color: 'text-green-400' }, // 
-    { label: 'Mobile Uplift', value: '30%', color: 'text-blue-400' }, // 
-    { label: 'Load Time Cut', value: '45%', color: 'text-yellow-400' }, // 
-    { label: 'Bounce Rate Drop', value: '22%', color: 'text-purple-400' } // 
+    { label: 'Conversion Boost', value: '37%', color: 'text-green-400' },
+    { label: 'Mobile Uplift', value: '30%', color: 'text-blue-400' },
+    { label: 'Load Time Cut', value: '45%', color: 'text-yellow-400' },
+    { label: 'Bounce Rate Drop', value: '22%', color: 'text-purple-400' }
   ];
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black hero-bg-pattern pt-20">
+      <style>{animationStyles}</style>
       {/* Animated code rain background */}
       <div className="code-rain"></div>
       
@@ -123,8 +167,8 @@ const Hero = () => {
               Tanuj Rajput
             </h1>
             
-            <div className="h-12 mb-8">
-              <h2 className="text-xl md:text-3xl font-medium text-gradient transition-all duration-500">
+            <div className="h-12 mb-8 relative overflow-hidden">
+               <h2 className={`text-xl md:text-3xl font-medium text-gradient absolute w-full left-0 right-0 role-text ${isAnimating ? 'fade-out' : 'fade-in'}`}>
                 {roles[currentRole]}
               </h2>
             </div>
@@ -190,7 +234,7 @@ const Hero = () => {
           </div>
         </div>
 
-       
+        
       </div>
     </section>
   );
