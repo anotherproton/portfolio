@@ -161,12 +161,12 @@ const Testimonials = () => {
             </div>
             <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
               <Briefcase className="w-8 h-8 text-green-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">29+</div>
+              <div className="text-2xl font-bold text-white mb-1">49+</div>
               <div className="text-gray-400 text-sm">Projects Delivered</div>
             </div>
             <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
               <ThumbsUp className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">17+</div>
+              <div className="text-2xl font-bold text-white mb-1">27+</div>
               <div className="text-gray-400 text-sm">Custom Stores Built</div>
             </div>
             <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
