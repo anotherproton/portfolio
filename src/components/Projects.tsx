@@ -22,15 +22,16 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'Mahina (mahina.co)', // 
+      title: 'Mahina (mahina.co)',
       category: 'D2C Brand & AOV Strategy',
-      description: 'Built a fully custom theme from a Figma design, focusing on increasing the Average Order Value (AOV) through strategic upsell and bundle integrations. Also enhanced customer service with WhatsApp chat and automated order emails.', // 
-      image: 'https://ik.imagekit.io/6cu3kzcxt/Reusable-leakproof-period-underwear-online-_-Mahina-06-15-2025_02_30_PM.png?updatedAt=1749978229279', // Placeholder image
-      technologies: ['Shopify', 'UX Design', 'AOV Strategy', 'WhatsApp Integration', 'Theme Optimization'], // 
+      description: 'Built a fully custom theme from a Figma design, focusing on increasing the Average Order Value (AOV) through strategic upsell and bundle integrations. Also enhanced customer service with WhatsApp chat and automated order emails.',
+      image: 'https://ik.imagekit.io/6cu3kzcxt/Reusable-leakproof-period-underwear-online-_-Mahina-06-15-2025_02_30_PM.png?updatedAt=1749978229279',
+      technologies: ['Shopify', 'UX Design', 'AOV Strategy', 'WhatsApp Integration', 'Theme Optimization'],
+      link: 'https://mahina.co',
       metrics: {
-        aovBoost: '+28%', // 
-        speedScore: '95+', // 
-        resolutionTime: '-40%' // 
+        aovBoost: '+28%',
+        speedScore: '95+',
+        resolutionTime: '-40%'
       },
       metricLabels: {
         aovBoost: 'AOV Boost',
@@ -43,15 +44,16 @@ const Projects = () => {
         resolutionTime: Clock,
       },
       featured: true,
-      year: '2024', // 
+      year: '2024',
       role: 'Lead Developer'
     },
     {
-      title: 'Mum & You (mumandyou.com)', // 
+      title: 'Mum & You (mumandyou.com)',
       category: 'Magento to Shopify Migration',
-      description: 'Led the large-scale migration of a UK brand from Magento to Shopify, ensuring complete data integrity and preserving SEO URLs. Developed a custom subscription model with recurring flows via Shopify APIs and built private apps to sync inventory and user data.', // 
-      image: 'https://ik.imagekit.io/6cu3kzcxt/mum-uk-06-15-2025_02_31_PM.png?updatedAt=1749978229304', // Placeholder image
-      technologies: ['Shopify', 'Subscription Flows', 'Private Apps', 'SEO', 'Shopify API'], // 
+      description: 'Led the large-scale migration of a UK brand from Magento to Shopify, ensuring complete data integrity and preserving SEO URLs. Developed a custom subscription model with recurring flows via Shopify APIs and built private apps to sync inventory and user data.',
+      image: 'https://ik.imagekit.io/6cu3kzcxt/mum-uk-06-15-2025_02_31_PM.png?updatedAt=1749978229304',
+      technologies: ['Shopify', 'Subscription Flows', 'Private Apps', 'SEO', 'Shopify API'],
+      link: 'https://mum-uk.myshopify.com',
       metrics: {
         migration: 'Seamless',
         inventory: 'Real-time Sync',
@@ -68,18 +70,19 @@ const Projects = () => {
         theme: Star,
       },
       featured: false,
-      year: '2025', // 
+      year: '2025',
       role: 'Lead Developer'
     },
     {
-      title: 'WeMust (wemust.com)', // 
+      title: 'WeMust (wemust.com)',
       category: 'Automation & UX Optimization',
-      description: 'Led development of a dynamic order system with a live pricing calculator. Simplified cart and pricing logic to significantly improve checkout rates and developed a custom invoice automation system to drastically reduce manual work.', // 
-      image: 'https://ik.imagekit.io/6cu3kzcxt/Best-Custom-DTF-Transfer-Printer-in-USA-_-We-Must-06-15-2025_02_31_PM.png?updatedAt=1749978229580', // Placeholder image
-      technologies: ['Shopify', 'Liquid', 'JavaScript', 'UX Optimization', 'Automation'], // 
+      description: 'Led development of a dynamic order system with a live pricing calculator. Simplified cart and pricing logic to significantly improve checkout rates and developed a custom invoice automation system to drastically reduce manual work.',
+      image: 'https://ik.imagekit.io/6cu3kzcxt/Best-Custom-DTF-Transfer-Printer-in-USA-_-We-Must-06-15-2025_02_31_PM.png?updatedAt=1749978229580',
+      technologies: ['Shopify', 'Liquid', 'JavaScript', 'UX Optimization', 'Automation'],
+      link: 'https://wemust.com',
       metrics: {
-        checkoutRate: '+20%', // 
-        manualWork: '-90%', // 
+        checkoutRate: '+20%',
+        manualWork: '-90%',
         orderSystem: 'Dynamic'
       },
       metricLabels: {
@@ -93,18 +96,19 @@ const Projects = () => {
         orderSystem: Star,
       },
       featured: false,
-      year: '2024', // 
+      year: '2024',
       role: 'Lead Developer'
     },
     {
-      title: 'Nicobar (nicobar.com)', // 
+      title: 'Nicobar (nicobar.com)',
       category: 'Performance & UX',
-      description: 'Contributed to a highly visual, brand-heavy theme by optimizing loading times through script deferrals and asset compression. Built custom filtering and sorting to improve product discovery and click-through rates.', // 
-      image: 'https://ik.imagekit.io/6cu3kzcxt/Nicobar-Modern-mindful-India-rooted-designs-06-15-2025_02_33_PM.png?updatedAt=1749978200080', // Placeholder image
-      technologies: ['Shopify', 'Liquid', 'Theme Development', 'Performance Optimization', 'UX Design'], // 
+      description: 'Contributed to a highly visual, brand-heavy theme by optimizing loading times through script deferrals and asset compression. Built custom filtering and sorting to improve product discovery and click-through rates.',
+      image: 'https://ik.imagekit.io/6cu3kzcxt/Nicobar-Modern-mindful-India-rooted-designs-06-15-2025_02_33_PM.png?updatedAt=1749978200080',
+      technologies: ['Shopify', 'Liquid', 'Theme Development', 'Performance Optimization', 'UX Design'],
+      link: 'https://nicobar.com',
       metrics: {
-        loadTime: '-42%', // 
-        ctr: '+12%', // 
+        loadTime: '-42%',
+        ctr: '+12%',
         filtering: 'Custom'
       },
       metricLabels: {
@@ -118,7 +122,7 @@ const Projects = () => {
         filtering: Star,
       },
       featured: false,
-      year: '2024', // 
+      year: '2024',
       role: 'Shopify Developer'
     }
   ];
@@ -196,14 +200,10 @@ const Projects = () => {
                   </div>
                   
                   <div className="flex gap-4">
-                    <a href={`https://www.${project.title.split(' ')[0].toLowerCase()}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-green-500 text-black rounded-lg hover:bg-green-400 transition-colors font-semibold">
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-green-500 text-black rounded-lg hover:bg-green-400 transition-colors font-semibold">
                       <Eye className="w-4 h-4" />
                       View Project
                     </a>
-                    <button className="flex items-center gap-2 px-6 py-3 border border-gray-700 text-gray-300 rounded-lg hover:border-green-500 hover:text-green-500 transition-colors">
-                      <Github className="w-4 h-4" />
-                      Case Study
-                    </button>
                   </div>
                 </div>
               </div>
