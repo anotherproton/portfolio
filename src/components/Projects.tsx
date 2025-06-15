@@ -22,7 +22,7 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'Mahina (mahina.co)',
+      title: 'Mahina',
       category: 'D2C Brand & AOV Strategy',
       description: 'Built a fully custom theme from a Figma design, focusing on increasing the Average Order Value (AOV) through strategic upsell and bundle integrations. Also enhanced customer service with WhatsApp chat and automated order emails.',
       image: 'https://ik.imagekit.io/6cu3kzcxt/Reusable-leakproof-period-underwear-online-_-Mahina-06-15-2025_02_30_PM.png?updatedAt=1749978229279',
@@ -44,11 +44,11 @@ const Projects = () => {
         resolutionTime: Clock,
       },
       featured: true,
-      year: '2024',
+      year: 'mahina.co',
       role: 'Lead Developer'
     },
     {
-      title: 'Mum & You (mumandyou.com)',
+      title: 'Mum & You',
       category: 'Magento to Shopify Migration',
       description: 'Led the large-scale migration of a UK brand from Magento to Shopify, ensuring complete data integrity and preserving SEO URLs. Developed a custom subscription model with recurring flows via Shopify APIs and built private apps to sync inventory and user data.',
       image: 'https://ik.imagekit.io/6cu3kzcxt/mum-uk-06-15-2025_02_31_PM.png?updatedAt=1749978229304',
@@ -70,11 +70,11 @@ const Projects = () => {
         theme: Star,
       },
       featured: false,
-      year: '2025',
+      year: 'mumandyou.com',
       role: 'Lead Developer'
     },
     {
-      title: 'WeMust (wemust.com)',
+      title: 'WeMust',
       category: 'Automation & UX Optimization',
       description: 'Led development of a dynamic order system with a live pricing calculator. Simplified cart and pricing logic to significantly improve checkout rates and developed a custom invoice automation system to drastically reduce manual work.',
       image: 'https://ik.imagekit.io/6cu3kzcxt/Best-Custom-DTF-Transfer-Printer-in-USA-_-We-Must-06-15-2025_02_31_PM.png?updatedAt=1749978229580',
@@ -96,11 +96,11 @@ const Projects = () => {
         orderSystem: Star,
       },
       featured: false,
-      year: '2024',
+      year: 'wemust.com',
       role: 'Lead Developer'
     },
     {
-      title: 'Nicobar (nicobar.com)',
+      title: 'Nicobar',
       category: 'Performance & UX',
       description: 'Contributed to a highly visual, brand-heavy theme by optimizing loading times through script deferrals and asset compression. Built custom filtering and sorting to improve product discovery and click-through rates.',
       image: 'https://ik.imagekit.io/6cu3kzcxt/Nicobar-Modern-mindful-India-rooted-designs-06-15-2025_02_33_PM.png?updatedAt=1749978200080',
@@ -122,7 +122,7 @@ const Projects = () => {
         filtering: Star,
       },
       featured: false,
-      year: '2024',
+      year: 'nicobar.com',
       role: 'Shopify Developer'
     }
   ];
