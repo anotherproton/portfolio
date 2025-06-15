@@ -28,9 +28,9 @@ const About = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               About <span className="text-gradient">Me</span>
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              I'm a Shopify Developer with 3+ years' experience building high-converting, fast-loading stores for D2C and B2B brands.  I believe that great e-commerce experiences are built on the intersection of beautiful design, clean code, and a deep understanding of user behavior.
-            </p>
+           <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+  I'm a Shopify Developer with 3+ years' experience building high-converting, fast-loading stores for D2C and B2B brands. I believe that great e-commerce experiences are built on the intersection of beautiful design, clean code, and a deep understanding of user behavior.
+</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
