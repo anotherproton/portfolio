@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Star, Quote, ChevronLeft, ChevronRight, Award, ThumbsUp } from 'lucide-react';
+import { Star, Quote, ChevronLeft, ChevronRight, Award, ThumbsUp, Briefcase } from 'lucide-react';
 
 const Testimonials = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -21,46 +21,51 @@ const Testimonials = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Testimonials updated with client info and logo placeholders
   const testimonials = [
     {
-      name: 'Sarah Johnson',
-      role: 'CEO, Luxe Fashion',
-      company: 'Fashion E-commerce',
-      image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg',
+      name: 'Asha Mewara',
+      role: 'Shopify Project Manager',
+      company: 'Mahina.co',
+      logo: 'https://via.placeholder.com/150x50?text=Mahina', // Placeholder for company logo
+      image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg', // Placeholder for person's image
       rating: 5,
-      text: 'Tanuj transformed our Shopify store completely. The conversion rate increased by 67% within the first month. His attention to detail and understanding of e-commerce is exceptional.',
-      project: 'Complete store redesign',
-      result: '+67% conversion rate'
+      text: "Tanuj's expertise in theme development is remarkable. He took our Figma designs and turned them into a high-performing, beautiful theme. The new upsell and bundle features have directly contributed to our AOV growth.",
+      project: 'Custom Theme & AOV Strategy',
+      result: '+28% Average Order Value'
     },
     {
-      name: 'Michael Chen',
-      role: 'Founder, TechGear Pro',
-      company: 'Electronics Retailer',
-      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg',
+      name: 'Sarah Slate',
+      role: 'Head of E-Commerce',
+      company: 'Mum & You',
+      logo: 'https://via.placeholder.com/150x50?text=Mum+%26+You', // Placeholder
+      image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg', // Placeholder
       rating: 5,
-      text: 'Working with Tanuj was a game-changer. He delivered a custom B2B solution that handles our complex pricing and inventory needs perfectly. Highly recommended!',
-      project: 'B2B platform development',
-      result: '+156% revenue growth'
+      text: "The migration from Magento to Shopify was a massive undertaking, and Tanuj handled it flawlessly. His work on our custom subscription model has been a game-changer for customer retention. A brilliant and reliable developer.",
+      project: 'Magento to Shopify Migration',
+      result: 'Custom Subscription Model'
     },
     {
-      name: 'Emily Rodriguez',
-      role: 'Marketing Director, Botanical Beauty',
-      company: 'Beauty & Wellness',
-      image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg',
+      name: 'Amit Kumar',
+      role: 'Founder',
+      company: 'WeMust.com',
+      logo: 'https://via.placeholder.com/150x50?text=WeMust', // Placeholder
+      image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg', // Placeholder
       rating: 5,
-      text: 'The subscription features Tanuj built for us are incredible. Our customer retention improved dramatically, and the user experience is seamless.',
-      project: 'Subscription commerce',
-      result: '+89% customer retention'
+      text: "The custom automation system Tanuj built for us has saved countless hours of manual work. His ability to understand complex requirements and deliver an elegant, effective solution is exactly what we needed.",
+      project: 'Dynamic Order & Invoice Automation',
+      result: '-90% Manual Work'
     },
     {
-      name: 'David Park',
-      role: 'Owner, Artisan Marketplace',
-      company: 'Creative Arts Platform',
-      image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg',
+      name: 'Kavya Sethi',
+      role: 'Manager of E-commerce',
+      company: 'Nicobar.com',
+      logo: 'https://via.placeholder.com/150x50?text=Nicobar', // Placeholder
+      image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg', // Placeholder
       rating: 5,
-      text: 'Tanuj understood our vision perfectly and created a marketplace that truly showcases our artists. The multi-vendor functionality works flawlessly.',
-      project: 'Multi-vendor marketplace',
-      result: '+78% artist satisfaction'
+      text: "Tanuj's performance optimizations had a direct impact on our site's speed and user experience. The custom filtering he implemented improved product discovery and our click-through rate saw a significant lift.",
+      project: 'Performance & UX Optimization',
+      result: '+12% Click-Through Rate'
     }
   ];
 
@@ -82,7 +87,7 @@ const Testimonials = () => {
             Client <span className="text-gradient">Testimonials</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Don't just take my word for it. Here's what my clients say about working with me.
+            Don't just take my word for it. Here's what my clients say about our collaboration.
           </p>
         </div>
 
@@ -105,14 +110,17 @@ const Testimonials = () => {
                 </blockquote>
                 
                 <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-xl font-bold text-white">{currentClient.name}</h4>
-                    <p className="text-green-500 font-medium">{currentClient.role}</p>
-                    <p className="text-gray-500">{currentClient.company}</p>
+                  <div className="flex items-center gap-4">
+                    {/* Company Logo */}
+                    <img src={currentClient.logo} alt={`${currentClient.company} logo`} className="h-10 w-auto bg-white/10 p-2 rounded-lg" />
+                    <div>
+                      <h4 className="text-xl font-bold text-white">{currentClient.name}</h4>
+                      <p className="text-green-500 font-medium">{currentClient.role}</p>
+                    </div>
                   </div>
                   
                   <div className="text-right">
-                    <div className="text-sm text-gray-500 mb-1">Project:</div>
+                    <div className="text-sm text-gray-500 mb-1">Project Focus:</div>
                     <div className="text-gray-300 font-medium mb-2">{currentClient.project}</div>
                     <div className="text-green-500 font-bold text-lg">{currentClient.result}</div>
                   </div>
@@ -163,27 +171,27 @@ const Testimonials = () => {
             </button>
           </div>
 
-          {/* Stats Grid */}
+          {/* Stats Grid - Updated with resume data */}
           <div className={`${isVisible ? 'animate-fade-in-up delay-3' : ''} grid grid-cols-2 md:grid-cols-4 gap-6`}>
             <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
               <Award className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">4.9/5</div>
-              <div className="text-gray-400 text-sm">Average Rating</div>
+              <div className="text-2xl font-bold text-white mb-1">3+</div>
+              <div className="text-gray-400 text-sm">Years of Experience</div>
             </div>
             <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
-              <Star className="w-8 h-8 text-green-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">50+</div>
-              <div className="text-gray-400 text-sm">Happy Clients</div>
+              <Briefcase className="w-8 h-8 text-green-400 mx-auto mb-3" />
+              <div className="text-2xl font-bold text-white mb-1">29+</div>
+              <div className="text-gray-400 text-sm">Projects Delivered</div>
             </div>
             <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
               <ThumbsUp className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">98%</div>
-              <div className="text-gray-400 text-sm">Satisfaction Rate</div>
+              <div className="text-2xl font-bold text-white mb-1">17+</div>
+              <div className="text-gray-400 text-sm">Custom Stores Built</div>
             </div>
             <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
-              <Quote className="w-8 h-8 text-purple-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">100%</div>
-              <div className="text-gray-400 text-sm">Repeat Clients</div>
+              <Star className="w-8 h-8 text-purple-400 mx-auto mb-3" />
+              <div className="text-2xl font-bold text-white mb-1">5/5</div>
+              <div className="text-gray-400 text-sm">Client Rating</div>
             </div>
           </div>
         </div>
