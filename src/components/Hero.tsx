@@ -61,8 +61,8 @@ const Hero = () => {
   // Metrics updated based on the provided resume
   const trustMetrics = [
     { icon: Award, value: '3+', label: 'Years Experience', color: 'text-yellow-400' }, // 
-    { icon: Code, value: '29+', label: 'Projects Delivered', color: 'text-blue-400' }, // 
-    { icon: Star, value: '17+', label: 'Custom Stores Built', color: 'text-green-400' }, // 
+    { icon: Code, value: '49+', label: 'Projects Delivered', color: 'text-blue-400' }, // 
+    { icon: Star, value: '27+', label: 'Custom Stores Built', color: 'text-green-400' }, // 
     { icon: Users, value: 'Top', label: 'D2C & B2B Brands', color: 'text-purple-400' } // 
   ];
 
