@@ -27,35 +27,35 @@ const Services = () => {
       title: 'Custom Theme Development',
       description: 'Building high-performing, responsive themes from scratch based on Figma designs, achieving 80+ Lighthouse scores on mobile. ',
       features: ['Figma to Liquid', 'Mobile-First UX ', 'Theme Optimization ', 'Custom Sections'],
-      price: 'From $3,000'
+      price: 'Contact for quote'
     },
     {
       icon: Zap,
       title: 'Performance Optimization',
       description: 'Proven record of reducing load times by up to 45% through script deferrals, asset compression, and achieving PageSpeed scores of 95+. ',
       features: ['PageSpeed Enhancement ', 'Script Deferrals ', 'Asset Compression ', 'A/B Testing '],
-      price: 'From $1,000'
+      price: 'Contact for quote'
     },
     {
       icon: Code2,
       title: 'Private App Development',
       description: 'Developing private Shopify apps to sync real-time inventory, user data, and create custom subscription models using the Shopify API. ',
       features: ['Shopify API Integration ', 'Inventory & Data Sync ', 'Subscription Flows ', 'Bespoke Cart Logic '],
-      price: 'From $4,000'
+      price: 'Contact for quote'
     },
     {
       icon: TrendingUp,
       title: 'Conversion & AOV Strategy',
       description: 'Boosting AOV by up to 28% and mobile conversions by 30% through strategic UX revamps, upsell integrations, and custom logic. ',
       features: ['AOV Strategy ', 'UX Revamps ', 'Upsell & Bundle Integrations ', 'Checkout Customization '],
-      price: 'From $1,500'
+      price: 'Contact for quote'
     },
     {
       icon: Database,
       title: 'Migration Services',
       description: 'Seamlessly migrating large-scale brands from platforms like Magento to Shopify, while preserving SEO URLs and ensuring data integrity. ',
       features: ['Magento to Shopify ', 'Preserve SEO URLs ', 'Data Integrity ', 'Zero Downtime Strategy'],
-      price: 'From $2,500'
+      price: 'Contact for quote'
     },
     {
         icon: Briefcase,
