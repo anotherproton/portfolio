@@ -6,20 +6,21 @@ const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
   const [typedText, setTypedText] = useState('');
 
+  // Roles updated to reflect resume summary
   const roles = [
     'Shopify Developer',
-    'E-commerce Architect', 
-    'Frontend Engineer',
-    'Digital Craftsman'
+    'Frontend Specialist',
+    'E-commerce Expert',
+    'Performance Optimizer'
   ];
 
   const codeSnippets = [
-    '{ theme: "liquid", magic: true }',
-    'const success = await deploy();',
-    'if (coffee) { code(); }',
-    'return <PerfectStore />;',
-    'npm run shopify-dev',
-    'git push origin main'
+    '{% schema %}',
+    'const conversionRate = 37;',
+    'if (store.fast) { customer.happy(); }',
+    'return <MobileFirstUX />;',
+    'npm run shopify theme dev',
+    'git commit -m "feat: custom theme"'
   ];
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const Hero = () => {
         setTypedText(codeSnippets[currentSnippet].substring(0, currentChar + 1));
         currentChar++;
       } else {
+        // Pause at the end of a snippet before clearing
         setTimeout(() => {
           currentSnippet = (currentSnippet + 1) % codeSnippets.length;
           currentChar = 0;
@@ -56,18 +58,19 @@ const Hero = () => {
     nextSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Metrics updated based on the provided resume
   const trustMetrics = [
-    { icon: Award, value: '5+', label: 'Years Experience', color: 'text-yellow-400' },
-    { icon: Code, value: '150+', label: 'Projects Delivered', color: 'text-blue-400' },
-    { icon: Star, value: '4.9/5', label: 'Client Rating', color: 'text-green-400' },
-    { icon: Users, value: '50+', label: 'Happy Clients', color: 'text-purple-400' }
+    { icon: Award, value: '3+', label: 'Years Experience', color: 'text-yellow-400' }, // 
+    { icon: Code, value: '29+', label: 'Projects Delivered', color: 'text-blue-400' }, // 
+    { icon: Star, value: '17+', label: 'Custom Stores Built', color: 'text-green-400' }, // 
+    { icon: Users, value: 'Top', label: 'D2C & B2B Brands', color: 'text-purple-400' } // 
   ];
 
   const performanceMetrics = [
-    { label: 'CTR', value: '67%', color: 'text-green-400' },
-    { label: 'Conversion', value: '23%', color: 'text-blue-400' },
-    { label: 'Speed', value: '1.8s', color: 'text-yellow-400' },
-    { label: 'Revenue', value: '+145%', color: 'text-purple-400' }
+    { label: 'Conversion Boost', value: '37%', color: 'text-green-400' }, // 
+    { label: 'Mobile Uplift', value: '30%', color: 'text-blue-400' }, // 
+    { label: 'Load Time Cut', value: '45%', color: 'text-yellow-400' }, // 
+    { label: 'Bounce Rate Drop', value: '22%', color: 'text-purple-400' } // 
   ];
 
   return (
@@ -136,7 +139,7 @@ const Hero = () => {
             </div>
 
             <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Crafting exceptional e-commerce experiences with code, creativity, and a deep understanding of what makes online stores successful.
+              Shopify expert crafting high-converting, fast-loading stores with Liquid, JavaScript, and a focus on mobile-first UX for D2C and B2B brands. 
             </p>
           </div>
 
@@ -176,15 +179,15 @@ const Hero = () => {
             </button>
           </div>
 
-          {/* Social Links - Moved below buttons */}
+          {/* Social Links - Updated with resume info */}
           <div className={`${isVisible ? 'animate-fade-in-up delay-4' : ''} flex justify-center gap-6 mb-16`}>
-            <a href="#" className="p-3 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-green-500 transition-colors backdrop-blur-sm">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-green-500 transition-colors backdrop-blur-sm">
               <Github className="w-6 h-6 text-gray-400 hover:text-green-500 transition-colors" />
             </a>
-            <a href="#" className="p-3 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-green-500 transition-colors backdrop-blur-sm">
+            <a href="https://linkedin.com/in/tanuj-rajput-9080901a5/" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-green-500 transition-colors backdrop-blur-sm">
               <Linkedin className="w-6 h-6 text-gray-400 hover:text-green-500 transition-colors" />
             </a>
-            <a href="#" className="p-3 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-green-500 transition-colors backdrop-blur-sm">
+            <a href="mailto:tanujrajput.dev@gmail.com" className="p-3 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-green-500 transition-colors backdrop-blur-sm">
               <Mail className="w-6 h-6 text-gray-400 hover:text-green-500 transition-colors" />
             </a>
           </div>
