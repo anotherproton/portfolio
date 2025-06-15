@@ -117,16 +117,7 @@ const Hero = () => {
         <div className="max-w-6xl mx-auto">
           {/* Main Content */}
           <div className={`${isVisible ? 'animate-fade-in-up' : ''} mb-12`}>
-            <div className="flex justify-center mb-8">
-              <div className="relative">
-                <div className="w-20 h-20 bg-gradient-shopify rounded-2xl flex items-center justify-center shadow-2xl">
-                  <Code className="w-10 h-10 text-white" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-400 rounded-full animate-pulse flex items-center justify-center">
-                  <div className="w-2 h-2 bg-black rounded-full"></div>
-                </div>
-              </div>
-            </div>
+            
             
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
               Tanuj Rajput
