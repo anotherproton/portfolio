@@ -104,9 +104,7 @@ const Services = () => {
                   ))}
                 </div>
 
-                <button className="w-full mt-6 px-6 py-3 bg-gray-800 text-gray-300 rounded-lg border border-gray-700 hover:border-green-500 hover:text-green-500 transition-colors">
-                  Learn More
-                </button>
+               
               </div>
             );
           })}
