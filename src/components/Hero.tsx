@@ -160,15 +160,21 @@ const Hero = () => {
 
           {/* Buttons - Moved below metrics */}
           <div className={`${isVisible ? 'animate-fade-in-up delay-3' : ''} flex flex-col sm:flex-row gap-4 justify-center mb-12`}>
-            <button className="btn-shopify px-8 py-4 rounded-lg font-semibold text-white flex items-center justify-center gap-2">
-              <Code className="w-5 h-5" />
-              View My Work
-            </button>
-            <button className="px-8 py-4 rounded-lg font-semibold text-white border-2 border-gray-800 hover:border-green-500 transition-colors flex items-center justify-center gap-2">
-              <Mail className="w-5 h-5" />
-              Let's Connect
-            </button>
-          </div>
+  <button
+    onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+    className="btn-shopify px-8 py-4 rounded-lg font-semibold text-white flex items-center justify-center gap-2"
+  >
+    <Code className="w-5 h-5" />
+    View My Work
+  </button>
+  <button
+    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+    className="px-8 py-4 rounded-lg font-semibold text-white border-2 border-gray-800 hover:border-green-500 transition-colors flex items-center justify-center gap-2"
+  >
+    <Mail className="w-5 h-5" />
+    Let's Connect
+  </button>
+</div>
 
           {/* Social Links - Updated with resume info */}
           <div className={`${isVisible ? 'animate-fade-in-up delay-4' : ''} flex justify-center gap-6 mb-16`}>
