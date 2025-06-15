@@ -29,7 +29,7 @@ const Header = () => {
             <img 
               src="https://ik.imagekit.io/6cu3kzcxt/logo%20Background%20Removed%20(1).png?updatedAt=1749999648669" 
               alt="Website Logo" 
-              className="h-8 w-8" 
+              className="h-10 w-16" 
             />
           </div>
 
