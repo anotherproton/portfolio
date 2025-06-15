@@ -10,6 +10,8 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // To handle button state
+  const [error, setError] = useState(''); // To handle errors
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,14 +36,34 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Updated handleSubmit function to work with Formspree
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const response = await fetch('https://formspree.io/f/xwpbbbee', { // 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setError('Oops! There was a problem submitting your form.');
+      }
+    } catch (error) {
+      setError('An error occurred. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
 
   const contactMethods = [
     {
@@ -72,6 +94,23 @@ const Contact = () => {
     { icon: Twitter, label: 'Twitter', url: 'https://x.com/imnottanuj' },
   ];
 
+  // If the form was submitted, show the success message and not the form.
+  if (isSubmitted) {
+    return (
+        <section id="contact" className="section-padding bg-gray-900/30">
+            <div className="container mx-auto px-6 text-center max-w-6xl">
+                <div className="bg-black/50 p-8 md:p-12 rounded-2xl border border-gray-800">
+                    <div className="text-center py-12">
+                        <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                        <h4 className="text-2xl font-bold mb-2 text-white">Message Sent!</h4>
+                        <p className="text-gray-400">Thanks for reaching out, {formData.name || ''}. I'll get back to you within 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
+  }
+
   return (
     <section id="contact" className="section-padding bg-gray-900/30">
       <div className="container mx-auto px-6">
@@ -93,7 +132,7 @@ const Contact = () => {
               {contactMethods.map((method, index) => {
                 const Icon = method.icon;
                 const content = method.link ? (
-                  <a href={method.link} className="text-gray-300 hover:text-green-500 transition-colors font-medium">
+                  <a href={method.link} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-green-500 transition-colors font-medium">
                     {method.content}
                   </a>
                 ) : (
@@ -124,6 +163,8 @@ const Contact = () => {
                     <a
                       key={index}
                       href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="p-3 bg-gray-800 rounded-lg border border-gray-700 hover:border-green-500 transition-colors group"
                       aria-label={social.label}
                     >
@@ -143,88 +184,82 @@ const Contact = () => {
             <div className="bg-black/50 p-8 rounded-2xl border border-gray-800">
               <h3 className="text-2xl font-bold mb-6 text-green-500">Start a Conversation</h3>
               
-              {isSubmitted ? (
-                <div className="text-center py-12">
-                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                  <h4 className="text-2xl font-bold mb-2 text-white">Message Sent!</h4>
-                  <p className="text-gray-400">Thanks for reaching out. I'll get back to you within 24 hours.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                        Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:border-green-500 focus:outline-none transition-colors text-white placeholder-gray-500"
-                        placeholder="Your name"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:border-green-500 focus:outline-none transition-colors text-white placeholder-gray-500"
-                        placeholder="your@email.com"
-                      />
-                    </div>
-                  </div>
-                  
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                      Subject *
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                      Name *
                     </label>
                     <input
                       type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
+                      id="name"
+                      name="name"
+                      value={formData.name}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:border-green-500 focus:outline-none transition-colors text-white placeholder-gray-500"
-                      placeholder="What's this about?"
+                      placeholder="Your name"
                     />
                   </div>
-                  
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                      Message *
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                      Email *
                     </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
                       onChange={handleInputChange}
                       required
-                      rows={6}
-                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:border-green-500 focus:outline-none transition-colors text-white placeholder-gray-500 resize-none"
-                      placeholder="Tell me about your project, timeline, and any specific requirements..."
+                      className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:border-green-500 focus:outline-none transition-colors text-white placeholder-gray-500"
+                      placeholder="your@email.com"
                     />
                   </div>
-                  
-                  <button
-                    type="submit"
-                    className="w-full btn-shopify px-6 py-4 rounded-lg font-semibold text-white flex items-center justify-center gap-2"
-                  >
-                    <Send className="w-5 h-5" />
-                    Send Message
-                  </button>
-                </form>
-              )}
+                </div>
+                
+                <div>
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+                    Subject *
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:border-green-500 focus:outline-none transition-colors text-white placeholder-gray-500"
+                    placeholder="What's this about?"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={6}
+                    className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:border-green-500 focus:outline-none transition-colors text-white placeholder-gray-500 resize-none"
+                    placeholder="Tell me about your project, timeline, and any specific requirements..."
+                  />
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full btn-shopify px-6 py-4 rounded-lg font-semibold text-white flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Send className="w-5 h-5" />
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </button>
+                {error && <p className="text-red-500 text-sm mt-2 text-center">{error}</p>}
+              </form>
             </div>
           </div>
         </div>
