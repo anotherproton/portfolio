@@ -22,12 +22,14 @@ const Header = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-black/90 backdrop-blur-lg border-b border-gray-800' : 'bg-transparent'
     }`}>
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-white">TanujDev</span>
-          </div>
+     <div className="container mx-auto px-6">
+  <div className="flex items-center justify-between h-16">
+    {/* Logo */}
+    <div className="flex items-center gap-2">
+      <img src="https://ik.imagekit.io/6cu3kzcxt/logo%20Background%20Removed%20(1).png?updatedAt=1749999648669" alt="TanujDev Logo" class="h-8 w-8" />
+    </div>
+  </div>
+</div>
 
           {/* Animated CTA Button */}
           <button 
