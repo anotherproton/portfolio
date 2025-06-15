@@ -35,7 +35,7 @@ const Header = () => {
             onClick={scrollToContact}
             className="btn-shopify px-6 py-2 rounded-lg font-semibold text-white"
           >
-            Contact Me
+            Elevate Your Store
           </button>
         </div>
       </div>
