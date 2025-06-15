@@ -57,10 +57,10 @@ const Projects = () => {
       metrics: {
         migration: 'Seamless',
         inventory: 'Live Sync',
-        theme: 'Fully Custom'
+        theme: 'Custom'
       },
       metricLabels: {
-        migration: 'Data Migration',
+        migration: 'Migration',
         inventory: 'Inventory',
         theme: 'Theme'
       },
