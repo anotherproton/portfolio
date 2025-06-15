@@ -47,37 +47,29 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      content: 'alex@alexchen.dev',
+      content: 'tanujrajput.dev@gmail.com',
       description: 'Drop me a line anytime',
-      link: 'mailto:alex@alexchen.dev'
-    },
-    {
-      icon: MessageCircle,
-      title: 'Discord',
-      content: 'alexchen#1234',
-      description: 'Let\'s chat in real-time',
-      link: null
+      link: 'mailto:tanujrajput.dev@gmail.com'
     },
     {
       icon: Calendar,
       title: 'Schedule a Call',
       content: 'Book 30 min',
       description: 'Discuss your project',
-      link: '#'
+      link: 'https://calendly.com/tanujrajput-dev/30min?month=2025-06'
     },
     {
       icon: Coffee,
       title: 'Coffee Chat',
-      content: 'San Francisco',
+      content: 'New Delhi',
       description: 'If you\'re in the area',
       link: null
     }
   ];
 
   const socialLinks = [
-    { icon: Github, label: 'GitHub', url: '#' },
-    { icon: Linkedin, label: 'LinkedIn', url: '#' },
-    { icon: Twitter, label: 'Twitter', url: '#' },
+    { icon: Linkedin, label: 'LinkedIn', url: 'https://www.linkedin.com/in/tanuj-rajput-9080901a5/' },
+    { icon: Twitter, label: 'Twitter', url: 'https://x.com/imnottanuj' },
   ];
 
   return (
@@ -239,7 +231,7 @@ const Contact = () => {
 
         <div className={`${isVisible ? 'animate-fade-in-up delay-3' : ''} text-center mt-16 pt-8 border-t border-gray-800`}>
           <p className="text-gray-500">
-            © 2024 Alex Chen. Built with React, TypeScript, and lots of ☕
+            © 2025 Tanuj Rajput. Built with React, TypeScript, and lots of ☕
           </p>
         </div>
       </div>
