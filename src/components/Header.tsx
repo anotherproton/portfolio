@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Code } from 'lucide-react';
+import { Rocket } from 'lucide-react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,15 +26,15 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-2">
-           
             <span className="text-xl font-bold text-white">TanujDev</span>
           </div>
 
-          {/* CTA Button */}
+          {/* Animated CTA Button */}
           <button 
             onClick={scrollToContact}
-            className="btn-shopify px-6 py-2 rounded-lg font-semibold text-white"
+            className="btn-shopify flex items-center gap-2 px-6 py-2 rounded-lg font-semibold text-white transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-green-500/30"
           >
+            <Rocket className="w-4 h-4" />
             Elevate Your Store
           </button>
         </div>
