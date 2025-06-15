@@ -1,27 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight, Award, ThumbsUp, Briefcase } from 'lucide-react';
 
 const Testimonials = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  // useRef to hold the interval ID, so it doesn't get reset on every render
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const element = document.getElementById('testimonials');
-    if (element) observer.observe(element);
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Testimonials updated (removed 'image' property)
   const testimonials = [
     {
       name: 'Asha Mewara',
@@ -65,14 +50,66 @@ const Testimonials = () => {
     }
   ];
 
+  // Function to start the auto-scroll timer
+  const startSlider = () => {
+    // Clear any existing interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    // Set a new interval
+    intervalRef.current = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 3000); // 3 seconds
+  };
+
+  // Function to stop the auto-scroll timer
+  const stopSlider = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+  };
+
+  // Start the slider when the component mounts
+  useEffect(() => {
+    startSlider();
+    // Clean up the interval when the component unmounts
+    return () => stopSlider();
+  }, []);
+
+
+  const handleNavClick = (index: number) => {
+    setCurrentTestimonial(index);
+    // Restart the timer whenever user manually navigates
+    startSlider();
+  };
+  
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+     handleNavClick((currentTestimonial + 1) % testimonials.length);
   };
-
+  
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+     handleNavClick((currentTestimonial - 1 + testimonials.length) % testimonials.length);
   };
 
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const element = document.getElementById('testimonials');
+    if (element) observer.observe(element);
+
+    return () => {
+        if(element) observer.unobserve(element)
+    };
+  }, []);
+  
   const currentClient = testimonials[currentTestimonial];
 
   return (
@@ -87,9 +124,13 @@ const Testimonials = () => {
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Main Testimonial */}
-          <div className={`${isVisible ? 'animate-fade-in-up delay-1' : ''} bg-black/50 rounded-2xl border border-gray-800 p-8 md:p-12 mb-12`}>
+          <div 
+            className={`${isVisible ? 'animate-fade-in-up delay-1' : ''} bg-black/50 rounded-2xl border border-gray-800 p-8 md:p-12 mb-12`}
+            onMouseEnter={stopSlider}
+            onMouseLeave={startSlider}
+          >
             <div>
               <div className="flex items-center gap-2 mb-6">
                 <Quote className="w-8 h-8 text-green-500" />
@@ -100,21 +141,21 @@ const Testimonials = () => {
                 </div>
               </div>
               
-              <blockquote className="text-xl md:text-2xl text-gray-300 leading-relaxed mb-6 italic">
+              <blockquote className="text-xl md:text-2xl text-gray-300 leading-relaxed mb-6 italic min-h-[150px] md:min-h-[120px]">
                 "{currentClient.text}"
               </blockquote>
               
-              <div className="flex items-center justify-between">
+              {/* This is the responsive container that was fixed */}
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
-                  {/* Company Logo */}
-                  <img src={currentClient.logo} alt={`${currentClient.company} logo`} className="h-10 w-auto bg-white/10 p-2 rounded-lg" />
+                  <img src={currentClient.logo} alt={`${currentClient.company} logo`} className="h-12 w-auto bg-white/10 p-2 rounded-lg object-contain" />
                   <div>
                     <h4 className="text-xl font-bold text-white">{currentClient.name}</h4>
                     <p className="text-green-500 font-medium">{currentClient.role}</p>
                   </div>
                 </div>
                 
-                <div className="text-right">
+                <div className="text-left md:text-right">
                   <div className="text-sm text-gray-500 mb-1">Project Focus:</div>
                   <div className="text-gray-300 font-medium mb-2">{currentClient.project}</div>
                   <div className="text-green-500 font-bold text-lg">{currentClient.result}</div>
@@ -128,6 +169,7 @@ const Testimonials = () => {
             <button
               onClick={prevTestimonial}
               className="p-3 bg-gray-800 rounded-lg border border-gray-700 hover:border-green-500 transition-colors"
+              aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5 text-gray-400 hover:text-green-500 transition-colors" />
             </button>
@@ -136,10 +178,11 @@ const Testimonials = () => {
               {testimonials.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentTestimonial(index)}
+                  onClick={() => handleNavClick(index)}
                   className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentTestimonial ? 'bg-green-500' : 'bg-gray-700'
+                    index === currentTestimonial ? 'bg-green-500' : 'bg-gray-700 hover:bg-gray-500'
                   }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
             </div>
@@ -147,12 +190,13 @@ const Testimonials = () => {
             <button
               onClick={nextTestimonial}
               className="p-3 bg-gray-800 rounded-lg border border-gray-700 hover:border-green-500 transition-colors"
+              aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5 text-gray-400 hover:text-green-500 transition-colors" />
             </button>
           </div>
 
-          {/* Stats Grid - Updated with resume data */}
+          {/* Stats Grid */}
           <div className={`${isVisible ? 'animate-fade-in-up delay-3' : ''} grid grid-cols-2 md:grid-cols-4 gap-6`}>
             <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
               <Award className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
