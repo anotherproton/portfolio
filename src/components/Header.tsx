@@ -29,7 +29,6 @@ const Header = () => {
       <img src="https://ik.imagekit.io/6cu3kzcxt/logo%20Background%20Removed%20(1).png?updatedAt=1749999648669" alt="TanujDev Logo" class="h-8 w-8" />
     </div>
   </div>
-</div>
 
           {/* Animated CTA Button */}
           <button 
