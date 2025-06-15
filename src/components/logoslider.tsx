@@ -9,7 +9,6 @@ const LogoSlider = () => {
     { name: 'Nicobar', url: 'https://ik.imagekit.io/6cu3kzcxt/nclogo.png?updatedAt=1749978988453' },
     { name: 'O&O', url: 'https://ik.imagekit.io/6cu3kzcxt/OO-Logo.svg?updatedAt=1749992611749' },
     { name: 'Vserv', url: 'https://ik.imagekit.io/6cu3kzcxt/without-mascot-light-bg.png?updatedAt=1749992611566' },
-    { name: 'Artkala', url: 'https://ik.imagekit.io/6cu3kzcxt/artkala.png?updatedAt=1749992611470' },
     { name: 'Grodd', url: 'https://ik.imagekit.io/6cu3kzcxt/download.png?updatedAt=1749992611427' },
     { name: 'Sheikh Chang Singh', url: 'https://ik.imagekit.io/6cu3kzcxt/8.9543f0ca.png?updatedAt=1749992611329' },
     { name: 'Summer Madras', url: 'https://ik.imagekit.io/6cu3kzcxt/Untitled_Artwork_122.avif?updatedAt=1749992611380' },
