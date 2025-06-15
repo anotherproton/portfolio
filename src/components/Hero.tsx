@@ -129,9 +129,9 @@ const Hero = () => {
               </h2>
             </div>
 
-            <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Shopify expert crafting high-converting, fast-loading stores with Liquid, JavaScript, and a focus on mobile-first UX for D2C and B2B brands. 
-            </p>
+          <p className="text-base md:text-lg text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+  Shopify expert crafting high-converting, fast-loading stores with Liquid, JavaScript, and a focus on mobile-first UX for D2C and B2B brands.
+</p>
           </div>
 
           {/* Trust Metrics */}
