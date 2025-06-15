@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import TechStack from './components/TechStack';
 import Services from './components/Services';
+import LogoSlider from './components/logoslider';
 import Projects from './components/Projects';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
@@ -16,8 +17,9 @@ function App() {
       <Hero />
       <About />
       <TechStack />
-      <Services />
+      <LogoSlider/>
       <Projects />
+      <Services />
       <Testimonials />
       <Contact />
     </div>
