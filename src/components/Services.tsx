@@ -110,15 +110,7 @@ const Services = () => {
           })}
         </div>
 
-        <div className={`${isVisible ? 'animate-fade-in-up delay-3' : ''} text-center mt-16`}>
-          <div className="bg-gradient-shopify p-8 rounded-2xl max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4 text-white">Ready to Start Your Project?</h3>
-            <p className="text-gray-200 mb-6">Let's discuss your requirements and create something amazing together.</p>
-            <button className="bg-white text-black px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Get Free Consultation
-            </button>
-          </div>
-        </div>
+       
       </div>
     </section>
   );
