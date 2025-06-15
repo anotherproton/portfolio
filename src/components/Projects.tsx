@@ -211,12 +211,7 @@ const Projects = () => {
           ))}
         </div>
 
-        <div className={`${isVisible ? 'animate-fade-in-up delay-3' : ''} text-center mt-16`}>
-          <p className="text-gray-500 mb-6">Interested in seeing more of my work?</p>
-          <button className="btn-shopify px-8 py-4 rounded-lg font-semibold text-white">
-            View Complete Portfolio
-          </button>
-        </div>
+      
       </div>
     </section>
   );
