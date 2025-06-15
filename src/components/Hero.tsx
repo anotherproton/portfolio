@@ -163,7 +163,7 @@ const Hero = () => {
       <div className="absolute top-40 right-24 code-snippet px-3 py-2 rounded-lg text-blue-400 text-xs floating-element opacity-50">shopify theme dev</div>
       <div className="absolute bottom-32 left-24 code-snippet px-3 py-2 rounded-lg text-purple-400 text-xs floating-element opacity-50">liquid.render()</div>
 
-      <div className="container mx-auto px-6 text-center relative z-10">
+      <div className="container mx-auto px-6 text-center relative z-10 pt-12">
         <div className="max-w-6xl mx-auto">
           <div className={`${isVisible ? 'animate-fade-in-up' : ''} mb-12`}>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">Tanuj Rajput</h1>
