@@ -26,7 +26,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-white">TanujDev</span>
+            <img 
+              src="https://ik.imagekit.io/6cu3kzcxt/logo%20Background%20Removed%20(1).png?updatedAt=1749999648669" 
+              alt="Website Logo" 
+              className="h-8 w-8" 
+            />
           </div>
 
           {/* Animated CTA Button */}
