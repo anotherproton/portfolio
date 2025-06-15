@@ -1,19 +1,18 @@
 import React from 'react';
 
 const LogoSlider = () => {
-  // Array of 24 placeholder logos. 
-  // For real-world use, replace these URLs with your actual client or technology logos.
+  // Array of logos updated with the URLs you provided.
   const logos = [
-    { name: 'Client 1', url: 'https://ik.imagekit.io/6cu3kzcxt/Mahina_Logo_330x.avif?updatedAt=1749979000137' },
-    { name: 'Client 2', url: 'https://ik.imagekit.io/6cu3kzcxt/logo-mumandyoudotcom.webp?updatedAt=1749979000523' },
-    { name: 'Client 3', url: 'https://ik.imagekit.io/6cu3kzcxt/We_Must_Logo_New.avif?updatedAt=1749979000620' },
-    { name: 'Client 4', url: 'https://ik.imagekit.io/6cu3kzcxt/nclogo.png?updatedAt=1749978988453' },
-    { name: 'Client 5', url: 'https://ik.imagekit.io/6cu3kzcxt/OO-Logo.svg?updatedAt=1749992611749' },
-    { name: 'Client 6', url: 'https://ik.imagekit.io/6cu3kzcxt/without-mascot-light-bg.png?updatedAt=1749992611566' },
-    { name: 'Client 7', url: 'https://ik.imagekit.io/6cu3kzcxt/artkala.png?updatedAt=1749992611470' },
-    { name: 'Client 8', url: 'https://ik.imagekit.io/6cu3kzcxt/download.png?updatedAt=1749992611427' },
-    { name: 'Client 9', url: 'https://ik.imagekit.io/6cu3kzcxt/8.9543f0ca.png?updatedAt=1749992611329' },
-    { name: 'Client 10', url: 'https://ik.imagekit.io/6cu3kzcxt/Untitled_Artwork_122.avif?updatedAt=1749992611380' },
+    { name: 'Mahina', url: 'https://ik.imagekit.io/6cu3kzcxt/Mahina_Logo_330x.avif?updatedAt=1749979000137' },
+    { name: 'Mum & You', url: 'https://ik.imagekit.io/6cu3kzcxt/logo-mumandyoudotcom.webp?updatedAt=1749979000523' },
+    { name: 'WeMust', url: 'https://ik.imagekit.io/6cu3kzcxt/We_Must_Logo_New.avif?updatedAt=1749979000620' },
+    { name: 'Nicobar', url: 'https://ik.imagekit.io/6cu3kzcxt/nclogo.png?updatedAt=1749978988453' },
+    { name: 'O&O', url: 'https://ik.imagekit.io/6cu3kzcxt/OO-Logo.svg?updatedAt=1749992611749' },
+    { name: 'Vserv', url: 'https://ik.imagekit.io/6cu3kzcxt/without-mascot-light-bg.png?updatedAt=1749992611566' },
+    { name: 'Artkala', url: 'https://ik.imagekit.io/6cu3kzcxt/artkala.png?updatedAt=1749992611470' },
+    { name: 'Grodd', url: 'https://ik.imagekit.io/6cu3kzcxt/download.png?updatedAt=1749992611427' },
+    { name: 'Sheikh Chang Singh', url: 'https://ik.imagekit.io/6cu3kzcxt/8.9543f0ca.png?updatedAt=1749992611329' },
+    { name: 'Summer Madras', url: 'https://ik.imagekit.io/6cu3kzcxt/Untitled_Artwork_122.avif?updatedAt=1749992611380' },
   ];
 
   // This style block contains the animation keyframes.
@@ -29,7 +28,7 @@ const LogoSlider = () => {
     }
 
     .animate-scroll {
-      animation: scroll 40s linear infinite;
+      animation: scroll 30s linear infinite;
     }
   `;
 
@@ -59,11 +58,11 @@ const LogoSlider = () => {
           <div className="flex w-max animate-scroll">
             {/* The logos are duplicated to create a seamless loop */}
             {[...logos, ...logos].map((logo, index) => (
-              <div key={index} className="flex-shrink-0 w-48 mx-4 flex items-center justify-center">
+              <div key={index} className="flex-shrink-0 w-48 mx-4 flex items-center justify-center h-20">
                 <img
                   src={logo.url}
                   alt={logo.name}
-                  className="h-12 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                  className="max-h-12 w-auto object-contain transition-all duration-300"
                 />
               </div>
             ))}
@@ -75,4 +74,3 @@ const LogoSlider = () => {
 };
 
 export default LogoSlider;
-
