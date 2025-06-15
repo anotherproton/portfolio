@@ -56,7 +56,7 @@ const Projects = () => {
       link: 'https://mum-uk.myshopify.com',
       metrics: {
         migration: 'Seamless',
-        inventory: 'Live Sync',
+        inventory: 'Synced',
         theme: 'Custom'
       },
       metricLabels: {
