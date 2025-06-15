@@ -167,7 +167,7 @@ const Hero = () => {
         <div className="max-w-6xl mx-auto">
           <div className={`${isVisible ? 'animate-fade-in-up' : ''} mb-12`}>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">Tanuj Rajput</h1>
-            <div className="h-12 mb-8 relative overflow-hidden">
+            <div className="h-12 relative overflow-hidden">
                <h2 className={`text-xl md:text-3xl font-medium text-gradient absolute w-full left-0 right-0 role-text ${isAnimating ? 'fade-out' : 'fade-in'}`}>{roles[currentRole]}</h2>
             </div>
             <p className="text-base md:text-lg text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">Shopify expert crafting high-converting, fast-loading stores with Liquid, JavaScript, and a focus on mobile-first UX for D2C and B2B brands.</p>
