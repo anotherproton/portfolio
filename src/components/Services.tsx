@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Palette, Settings, Smartphone, ShoppingCart, Zap, Code2, Layers, Globe, Database, Headphones } from 'lucide-react';
+import { Palette, Settings, Smartphone, ShoppingCart, Zap, Code2, Layers, Globe, Database, Briefcase, TrendingUp } from 'lucide-react';
 
 const Services = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,69 +20,49 @@ const Services = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Services updated to reflect resume skills and experience
   const services = [
     {
       icon: Palette,
       title: 'Custom Theme Development',
-      description: 'Create unique, brand-focused Shopify themes that stand out from the competition and drive conversions.',
-      features: ['Responsive Design', 'Custom Sections', 'SEO Optimized', 'Brand Integration'],
-      price: 'From $2,500'
-    },
-    {
-      icon: Settings,
-      title: 'Store Setup & Configuration',
-      description: 'Complete Shopify store setup with payment gateways, shipping, taxes, and essential app integrations.',
-      features: ['Payment Setup', 'Shipping Config', 'Tax Configuration', 'App Integration'],
-      price: 'From $1,200'
-    },
-    {
-      icon: Smartphone,
-      title: 'Mobile Optimization',
-      description: 'Ensure your store provides an exceptional experience across all devices with mobile-first design.',
-      features: ['Mobile-First Design', 'Touch Optimization', 'Fast Loading', 'Responsive Layout'],
-      price: 'From $800'
-    },
-    {
-      icon: ShoppingCart,
-      title: 'E-commerce Strategy',
-      description: 'Develop comprehensive e-commerce strategies to maximize sales and improve customer retention.',
-      features: ['Conversion Optimization', 'User Experience', 'Sales Funnels', 'Customer Journey'],
-      price: 'From $1,500'
+      description: 'Building high-performing, responsive themes from scratch based on Figma designs, achieving 80+ Lighthouse scores on mobile. ',
+      features: ['Figma to Liquid', 'Mobile-First UX ', 'Theme Optimization ', 'Custom Sections'],
+      price: 'From $3,000'
     },
     {
       icon: Zap,
       title: 'Performance Optimization',
-      description: 'Speed up your store with advanced optimization techniques for better user experience and SEO.',
-      features: ['Page Speed', 'Image Optimization', 'Code Minification', 'CDN Integration'],
+      description: 'Proven record of reducing load times by up to 45% through script deferrals, asset compression, and achieving PageSpeed scores of 95+. ',
+      features: ['PageSpeed Enhancement ', 'Script Deferrals ', 'Asset Compression ', 'A/B Testing '],
       price: 'From $1,000'
     },
     {
       icon: Code2,
-      title: 'Custom App Development',
-      description: 'Build custom Shopify apps to extend functionality and meet specific business requirements.',
-      features: ['API Integration', 'Custom Features', 'Third-party Sync', 'Automation Tools'],
-      price: 'From $3,500'
+      title: 'Private App Development',
+      description: 'Developing private Shopify apps to sync real-time inventory, user data, and create custom subscription models using the Shopify API. ',
+      features: ['Shopify API Integration ', 'Inventory & Data Sync ', 'Subscription Flows ', 'Bespoke Cart Logic '],
+      price: 'From $4,000'
     },
     {
-      icon: Layers,
-      title: 'Headless Commerce',
-      description: 'Modern headless solutions using Shopify as backend with React/Next.js frontend for ultimate flexibility.',
-      features: ['React/Next.js', 'GraphQL APIs', 'Custom Frontend', 'Scalable Architecture'],
-      price: 'From $5,000'
+      icon: TrendingUp,
+      title: 'Conversion & AOV Strategy',
+      description: 'Boosting AOV by up to 28% and mobile conversions by 30% through strategic UX revamps, upsell integrations, and custom logic. ',
+      features: ['AOV Strategy ', 'UX Revamps ', 'Upsell & Bundle Integrations ', 'Checkout Customization '],
+      price: 'From $1,500'
     },
     {
       icon: Database,
       title: 'Migration Services',
-      description: 'Seamlessly migrate your existing store to Shopify with zero downtime and data integrity.',
-      features: ['Data Migration', 'SEO Preservation', 'Zero Downtime', 'Testing & QA'],
-      price: 'From $2,000'
+      description: 'Seamlessly migrating large-scale brands from platforms like Magento to Shopify, while preserving SEO URLs and ensuring data integrity. ',
+      features: ['Magento to Shopify ', 'Preserve SEO URLs ', 'Data Integrity ', 'Zero Downtime Strategy'],
+      price: 'From $2,500'
     },
     {
-      icon: Headphones,
-      title: 'Ongoing Support',
-      description: 'Continuous maintenance, updates, and support to keep your store running smoothly.',
-      features: ['24/7 Support', 'Regular Updates', 'Bug Fixes', 'Performance Monitoring'],
-      price: 'From $500/month'
+        icon: Briefcase,
+        title: 'Project Ownership & QA',
+        description: 'Handling end-to-end project ownership, from client calls and requirement gathering to execution, quality assurance, and final delivery. ',
+        features: ['Client Communication ', 'Requirement Gathering ', 'Execution & Delivery ', 'Thorough QA '],
+        price: 'Contact for quote'
     }
   ];
 
@@ -94,7 +74,7 @@ const Services = () => {
             My <span className="text-gradient">Services</span>
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Comprehensive Shopify development services to help your business thrive in the digital marketplace.
+            A suite of specialized Shopify services designed to build, optimize, and scale your e-commerce business.
           </p>
         </div>
 
@@ -111,7 +91,7 @@ const Services = () => {
                     <Icon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-white">{service.title}</h3>
-                  <p className="text-gray-400 leading-relaxed mb-4">{service.description}</p>
+                  <p className="text-gray-400 leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: service.description }}></p>
                   <div className="text-green-500 font-bold text-lg mb-4">{service.price}</div>
                 </div>
                 
@@ -119,7 +99,7 @@ const Services = () => {
                   {service.features.map((feature, featureIndex) => (
                     <div key={featureIndex} className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-gray-300 text-sm">{feature}</span>
+                      <span className="text-gray-300 text-sm" dangerouslySetInnerHTML={{ __html: feature }}></span>
                     </div>
                   ))}
                 </div>
