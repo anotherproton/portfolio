@@ -62,7 +62,7 @@ const Header = () => {
             <img 
               src="https://ik.imagekit.io/6cu3kzcxt/logo%20Background%20Removed.png?updatedAt=1749999601697" 
               alt="Tanuj Rajput Logo" 
-              className="h-10 w-auto" // Simplified size classes
+              className="h-20 w-auto" // Simplified size classes
             />
           </a>
 
