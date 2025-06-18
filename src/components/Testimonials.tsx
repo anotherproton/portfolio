@@ -97,7 +97,7 @@ const Testimonials = () => {
             <div className="absolute top-1/2 -translate-y-1/2 right-0 h-full w-1/2 bg-gradient-to-l from-purple-500/10 to-transparent blur-3xl"></div>
         </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+     <div className="container mx-auto px-4 lg:px-[25rem] relative z-10">
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
             Client <span className="text-gradient">Testimonials</span>
