@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Code2, Database, Palette, Zap, Globe, Smartphone, Copy, CheckCircle, BrainCircuit, Rocket, Feather } from 'lucide-react';
 
 // --- Custom Hook 1: useTypewriter ---
-const useTypewriter = (textToType, speed = 30) => {
+const useTypewriter = (textToType, speed = 25) => {
     const [typedText, setTypedText] = useState('');
     
     useEffect(() => {
@@ -24,7 +24,7 @@ const useTypewriter = (textToType, speed = 30) => {
     return typedText;
 };
 
-// --- Custom Hook 2: useMouseGlow (for the aurora effect) ---
+// --- Custom Hook 2: useMouseGlow ---
 const useMouseGlow = (ref) => {
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -56,76 +56,101 @@ const TechStack = () => {
     const [copied, setCopied] = useState(false);
     const sectionRef = useRef(null);
 
+    // --- UPDATED: Restored the full, detailed tech stack with new code snippets ---
     const techCategories = [
         {
             icon: Globe, title: 'E-commerce',
-            technologies: ['Shopify', 'Shopify Plus', 'Liquid', 'GraphQL', 'REST APIs'],
-            code: `// Custom Shopify section with dynamic content
+            technologies: ['Shopify', 'Shopify Plus', 'Liquid', 'Shopify CLI', 'GraphQL', 'REST APIs'],
+            code: `// Shopify Liquid: Fetching and displaying products
 {% liquid
-  assign products = collections[section.settings.collection].products
-  assign limit = section.settings.products_limit
+  assign collection = collections[section.settings.collection]
+  assign product_limit = section.settings.limit | default: 4
 %}
 <div class="product-grid">
-  {% for product in products limit: limit %}
+  {% for product in collection.products limit: product_limit %}
     {% render 'product-card', product: product %}
   {% endfor %}
 </div>`
         },
         {
             icon: Code2, title: 'Frontend',
-            technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'SCSS'],
-            code: `// React Hook for fetching data
+            technologies: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'SCSS', 'JavaScript ES6+'],
+            code: `// React Hook for responsive screen size
 import { useState, useEffect } from 'react';
 
-function useData(url) {
-  const [data, setData] = useState(null);
+export const useScreenWidth = () => {
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    fetch(url)
-      .then(res => res.json())
-      .then(setData);
-  }, [url]);
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  return { data };
-}`
+  return width;
+};`
         },
-        {
+         {
             icon: Zap, title: 'Performance',
-            technologies: ['Web Vitals', 'Lighthouse', 'Bundle Analysis', 'CDN'],
-            code: `// Performance optimization with dynamic imports
-import { lazy, Suspense } from 'react';
+            technologies: ['Web Vitals', 'Lighthouse', 'Bundle Analysis', 'Image Optimization', 'CDN', 'Caching'],
+            code: `// Using Intersection Observer for lazy loading
+const images = document.querySelectorAll('img[data-src]');
 
-const HeavyComponent = lazy(() => 
-  import('./HeavyComponent')
-);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.src = entry.target.dataset.src;
+      observer.unobserve(entry.target);
+    }
+  });
+});
 
-function App() {
-  return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <HeavyComponent />
-      </Suspense>
-    </div>
-  );
-}`
+images.forEach(img => observer.observe(img));`
         },
         {
             icon: Database, title: 'Backend & Tools',
-            technologies: ['Node.js', 'Express', 'MongoDB', 'Git', 'Vite'],
-            code: `// Simple Express.js server endpoint
+            technologies: ['Node.js', 'Express', 'MongoDB', 'Git', 'Webpack', 'Vite'],
+            code: `// Node.js: Creating a simple API endpoint
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 
-app.get('/api/users', (req, res) => {
-  // Logic to fetch users from MongoDB
-  res.json({ users: [...] });
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'UP' });
 });
 
 app.listen(PORT, () => {
-  console.log(\`Server running on port \${PORT}\`);
+  console.log(\`Server is running on port \${PORT}\`);
 });`
         },
+        {
+            icon: Palette, title: 'Design & UX',
+            technologies: ['Figma', 'Adobe XD', 'Photoshop', 'Responsive Design', 'Accessibility', 'Animation'],
+            code: `/* CSS for a smooth, accessible focus ring */
+:focus-visible {
+  outline: 3px solid #34d399;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(52, 211, 153, 0.2);
+  border-radius: 4px;
+  transition: outline 0.2s ease, box-shadow 0.2s ease;
+}`
+        },
+        {
+            icon: Smartphone, title: 'Mobile & PWA',
+            technologies: ['Progressive Web Apps', 'Mobile-First', 'Touch Optimization', 'Offline Support'],
+            code: `// Service Worker registration for PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('Service Worker registered! Scope: ', registration.scope);
+      })
+      .catch(err => {
+        console.log('Service Worker registration failed: ', err);
+      });
+  });
+}`
+        }
     ];
 
     const currentFocusItems = [
@@ -140,13 +165,10 @@ app.listen(PORT, () => {
 
     useEffect(() => {
         const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                setIsVisible(true);
-                observer.unobserve(entry.target);
-            }
+            if (entry.isIntersecting) setIsVisible(true);
         }, { threshold: 0.1 });
-        if (sectionRef.current) observer.observe(sectionRef.current);
         const currentSectionRef = sectionRef.current;
+        if (currentSectionRef) observer.observe(currentSectionRef);
         return () => {
             if (currentSectionRef) observer.unobserve(currentSectionRef);
         };
@@ -159,34 +181,25 @@ app.listen(PORT, () => {
     };
 
     const newStyles = `
-        .glow-card {
-            position: relative;
-            background: linear-gradient(to right, #0a0a0a, #101010);
-        }
         .glow-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; width: 100%; height: 100%;
+            content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at var(--x) var(--y), rgba(34, 197, 94, 0.15), transparent 20%);
-            border-radius: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s;
+            border-radius: 1rem; opacity: 0; transition: opacity 0.3s;
         }
         .glow-card:hover::before { opacity: 1; }
         .code-block .token-comment { color: #6a9955; }
         .code-block .token-keyword { color: #569cd6; }
         .code-block .token-string { color: #ce9178; }
         .code-block .token-function { color: #dcdcaa; }
-        .code-block .token-punctuation { color: #d4d4d4; }
-        .code-block .token-operator { color: #d4d4d4; }
         .code-block .token-tag { color: #4ec9b0; }
+        .code-block .token-property { color: #9cdcfe; }
+        .code-block .token-punctuation { color: #d4d4d4; }
     `;
 
-    // A simple function for basic syntax highlighting
     const highlightSyntax = (str) => {
         return str
-            .replace(/(\/\/.*)/g, '<span class="token-comment">$1</span>')
-            .replace(/\b(const|let|var|function|import|from|export|return|if|else|for|of|in|require|=>|new|await|async|class|extends|module|exports)\b/g, '<span class="token-keyword">$1</span>')
+            .replace(/(\/\/.*|\/\*[\s\S]*?\*\/)/g, '<span class="token-comment">$1</span>')
+            .replace(/\b(const|let|var|function|import|from|export|return|if|else|for|of|in|require|=>|new|await|async|class|extends|module|exports|document|window|console|process|__dirname)\b/g, '<span class="token-keyword">$1</span>')
             .replace(/(\w+)(?=\()/g, '<span class="token-function">$1</span>')
             .replace(/('.*?'|".*?"|`.*?`)/gs, '<span class="token-string">$1</span>');
     };
@@ -208,13 +221,13 @@ app.listen(PORT, () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                     {/* Left Column: Interactive Categories */}
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {techCategories.map((category, index) => (
                             <div
                                 key={index}
                                 ref={index === activeCategory ? glowCardRef : null}
                                 onClick={() => setActiveCategory(index)}
-                                className={`glow-card p-6 rounded-2xl border cursor-pointer transition-all duration-300 ${activeCategory === index ? 'border-green-400/70 scale-[1.02]' : 'border-white/10'}`}
+                                className={`glow-card relative p-6 rounded-2xl border cursor-pointer transition-all duration-300 h-full ${activeCategory === index ? 'border-green-400/70 scale-[1.02] bg-[#111]' : 'border-white/10 bg-[#0d1117]'}`}
                             >
                                 <div className="flex items-center gap-4 mb-3">
                                     <div className={`p-2 rounded-lg transition-colors duration-300 ${activeCategory === index ? 'bg-green-500/10' : 'bg-white/5'}`}>
@@ -247,11 +260,10 @@ app.listen(PORT, () => {
                                     {copied ? 'Copied!' : 'Copy'}
                                 </button>
                             </div>
-                            {/* --- THIS IS THE CORRECTED CODE BLOCK --- */}
                             <pre className="p-6 text-sm overflow-x-auto min-h-[300px]">
                                 <code>
                                     <span dangerouslySetInnerHTML={{ __html: highlightSyntax(typedCode) }} />
-                                    <span className="animate-ping">|</span>
+                                    <span className="animate-ping text-white/80">|</span>
                                 </code>
                             </pre>
                         </div>
