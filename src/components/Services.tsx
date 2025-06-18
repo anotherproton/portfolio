@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Palette, Zap, Code2, TrendingUp, Database, Briefcase, Check, ArrowRight } from 'lucide-react';
+import { Palette, Zap, Code2, TrendingUp, Database, Briefcase, Check, ArrowDown } from 'lucide-react';
 
-// --- Reusable Component: ServiceCard ---
-// A dedicated component for the service cards to encapsulate the complex styling and animation.
+// --- Reusable Component: ServiceCard (UPDATED) ---
+// The "Learn More" button has been removed from the card.
+// The card now focuses solely on presenting the service information.
 const ServiceCard = ({ icon: Icon, title, description, features, isVisible, delay }) => {
   return (
     <div 
@@ -22,7 +23,7 @@ const ServiceCard = ({ icon: Icon, title, description, features, isVisible, dela
       </div>
       
       {/* Features List */}
-      <div className="space-y-3 mb-8">
+      <div className="space-y-3">
         {features.map((feature, featureIndex) => (
           <div key={featureIndex} className="flex items-center gap-3">
             <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
@@ -30,20 +31,12 @@ const ServiceCard = ({ icon: Icon, title, description, features, isVisible, dela
           </div>
         ))}
       </div>
-
-      {/* Spacer to push button to the bottom */}
-      <div className="flex-grow"></div> 
-
-      {/* Action Button */}
-      <button className="flex items-center justify-center gap-2 mt-4 px-6 py-3 bg-white/5 border border-white/20 rounded-lg text-white font-semibold transition-all duration-300 group-hover:bg-green-500 group-hover:text-black group-hover:border-green-500">
-        Learn More <ArrowRight className="w-4 h-4" />
-      </button>
     </div>
   );
 };
 
 
-// --- Main Services Component ---
+// --- Main Services Component (UPDATED) ---
 const Services = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
@@ -103,6 +96,10 @@ const Services = () => {
     }
   ];
 
+  const handleScrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="services" ref={sectionRef} className="py-20 md:py-28 bg-black relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
@@ -128,6 +125,18 @@ const Services = () => {
               delay={`${index * 150}ms`}
             />
           ))}
+        </div>
+
+        {/* --- NEW: Central Call-to-Action Button --- */}
+        <div className={`mt-20 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} style={{ transitionDelay: '900ms' }}>
+            <p className="text-xl text-white/80 mb-4">Have a project in mind?</p>
+            <button
+                onClick={handleScrollToContact} 
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-green-600 text-white rounded-lg font-semibold transition-all duration-300 transform hover:bg-green-500 hover:scale-105 shadow-lg shadow-green-600/20"
+            >
+                Let's Get in Touch
+                <ArrowDown className="w-5 h-5" />
+            </button>
         </div>
       </div>
     </section>
