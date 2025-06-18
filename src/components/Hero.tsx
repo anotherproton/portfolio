@@ -101,30 +101,38 @@ const Hero = () => {
     }, 4000);
 
     // Typing effect for code snippets
-    let currentSnippet = 0;
-    let currentChar = 0;
+    let currentSnippetIndex = 0;
+    let charIndex = 0;
     let isDeleting = false;
-    const typeInterval = setInterval(() => {
-        const snippet = codeSnippets[currentSnippet];
-        if (isDeleting) {
-            setTypedText(snippet.substring(0, currentChar - 1));
-            currentChar--;
-            if (currentChar === 0) {
-                isDeleting = false;
-                currentSnippet = (currentSnippet + 1) % codeSnippets.length;
-            }
-        } else {
-            setTypedText(snippet.substring(0, currentChar + 1));
-            currentChar++;
-            if (currentChar === snippet.length) {
-                isDeleting = true;
-                // Pause before deleting
-                return; 
-            }
-        }
-    }, 120);
+    let typeTimeout;
 
-    // NEW: Mouse parallax effect handler
+    const type = () => {
+      const currentSnippet = codeSnippets[currentSnippetIndex];
+      let delay = isDeleting ? 60 : 120;
+
+      if (isDeleting) {
+        setTypedText(currentSnippet.substring(0, charIndex - 1));
+        charIndex--;
+      } else {
+        setTypedText(currentSnippet.substring(0, charIndex + 1));
+        charIndex++;
+      }
+
+      if (!isDeleting && charIndex === currentSnippet.length) {
+        delay = 2000; // Pause at the end of a word
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        currentSnippetIndex = (currentSnippetIndex + 1) % codeSnippets.length;
+        delay = 500; // Pause before typing new word
+      }
+
+      typeTimeout = setTimeout(type, delay);
+    };
+
+    type(); // Start the typing effect
+
+    // Mouse parallax effect handler
     const handleMouseMove = (e) => {
         const { clientX, clientY } = e;
         const x = (clientX - window.innerWidth / 2) / 30; // Divide by a factor to reduce movement
@@ -135,7 +143,7 @@ const Hero = () => {
 
     return () => {
       clearInterval(roleInterval);
-      clearInterval(typeInterval);
+      clearTimeout(typeTimeout); // Clear the typing timeout
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
@@ -234,7 +242,10 @@ const Hero = () => {
       
       {/* Dynamic Code Snippets */}
       <div className="absolute top-24 left-10 md:left-20 code-snippet px-4 py-2 rounded-lg text-green-400 text-sm opacity-50 font-mono select-none" style={{ transform: `translate(-${parallaxOffset.x * 0.5}px, -${parallaxOffset.y * 0.5}px)` }}>
-        > <span className="typing-animation">{typedText}</span><span className="animate-ping">_</span>
+        {/* THIS IS THE FIX: Using {' > '} to render the character as a string literal */}
+        {'> '}
+        <span className="typing-animation">{typedText}</span>
+        <span className="animate-ping">_</span>
       </div>
 
       <div className="container mx-auto px-4 text-center relative z-10">
