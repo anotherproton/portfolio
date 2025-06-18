@@ -50,7 +50,7 @@ const Testimonials = () => {
   // CONSOLIDATED STATS for a cleaner mobile layout
   const statsData = [
     { icon: Award, title: 'Experience & Scale', metrics: [{ value: '3+', label: 'Years Experience' }, { value: '49+', label: 'Projects Delivered' }] },
-    { icon: ThumbsUp, title: 'Client Satisfaction', metrics: [{ value: '27+', label: 'Custom Stores' }, { value: '100%', label: 'Positive Feedback' }] }
+    { icon: ThumbsUp, title: 'Client Satisfaction', metrics: [{ value: '27+', label: 'Custom Stores' }, { value: '93%', label: 'Positive Feedback' }] }
   ];
 
   const startSlider = () => {
