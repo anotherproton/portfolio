@@ -89,7 +89,7 @@ const Hero = () => {
     // --- All new styles for background, animations, and glassmorphism ---
     const newStyles = `
         .hero-bg-pattern {
-            background-color: #030712; /* Dark Navy */
+            background-color: #000000; /* Dark Navy */
         }
         .mesh-gradient {
             position: absolute; inset: 0;
