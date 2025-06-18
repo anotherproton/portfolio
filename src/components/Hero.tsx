@@ -1,63 +1,78 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ChevronDown, Code, Github, Linkedin, Mail, Star, Award, Users, Coffee, Terminal, Brackets, Zap, TrendingUp, BarChart3, PieChart, Database, Layers, Globe } from 'lucide-react';
+import { Code, Github, Linkedin, Mail, Award, Users, Terminal, Brackets, Zap, TrendingUp, Database, Layers, Globe, Rocket, Smartphone } from 'lucide-react';
 
-// A new component to handle the number animation
-const AnimatedNumber = ({ value, duration = 1500 }) => {
+// --- IMPROVED AnimatedNumber COMPONENT ---
+// Now features a smoother "ease-out" animation and handles '+' suffixes.
+const AnimatedNumber = ({ value, duration = 2000 }) => {
     const [currentValue, setCurrentValue] = useState(0);
     const elementRef = useRef(null);
 
+    const endValue = parseInt(value, 10);
+    const isNumeric = !isNaN(endValue);
+    const suffix = typeof value === 'string' ? value.replace(/[0-9]/g, '') : '';
+
     const formatValue = (val) => {
-        // This function handles both percentages and raw numbers
-        if (typeof value === 'string' && value.includes('%')) {
-            return `${Math.round(val)}%`;
-        }
-        return Math.round(val);
+        if (!isNumeric) return value;
+        return `${Math.round(val)}${suffix}`;
     };
     
     useEffect(() => {
+        if (!isNumeric) return;
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
                     let startValue = 0;
-                    const endValue = parseInt(value);
                     const startTime = Date.now();
 
                     const animate = () => {
                         const now = Date.now();
                         const progress = Math.min((now - startTime) / duration, 1);
-                        const nextValue = startValue + progress * (endValue - startValue);
+                        // Ease-out function for a smooth finish
+                        const easedProgress = 1 - Math.pow(1 - progress, 4);
+                        const nextValue = startValue + easedProgress * (endValue - startValue);
                         setCurrentValue(nextValue);
 
                         if (progress < 1) {
                             requestAnimationFrame(animate);
+                        } else {
+                            setCurrentValue(endValue);
                         }
                     };
                     requestAnimationFrame(animate);
+                    observer.disconnect(); // Animate only once
                 }
             },
-            { threshold: 0.1 }
+            { threshold: 0.5 }
         );
 
-        if (elementRef.current) {
-            observer.observe(elementRef.current);
+        const currentRef = elementRef.current;
+        if (currentRef) {
+            observer.observe(currentRef);
         }
 
         return () => {
-            if (elementRef.current) {
-                observer.unobserve(elementRef.current);
+            if (currentRef) {
+                observer.unobserve(currentRef);
             }
         };
-    }, [value, duration]);
+    }, [value, duration, isNumeric, endValue]);
+
+    if (!isNumeric) {
+        return <span>{value}</span>
+    }
 
     return <span ref={elementRef}>{formatValue(currentValue)}</span>;
 };
 
 
+// --- The UPGRADED Hero COMPONENT ---
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentRole, setCurrentRole] = useState(0);
   const [typedText, setTypedText] = useState('');
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isAnimatingRole, setIsAnimatingRole] = useState(false);
+  const [parallaxOffset, setParallaxOffset] = useState({ x: 0, y: 0 });
 
   const roles = [
     'Shopify Developer',
@@ -66,7 +81,6 @@ const Hero = () => {
     'Performance Optimizer'
   ];
 
-  // More code snippets added
   const codeSnippets = [
     '{% schema %}',
     'const conversionRate = 37;',
@@ -74,82 +88,107 @@ const Hero = () => {
     'return <MobileFirstUX />;',
     'npm run shopify theme dev',
     'git commit -m "feat: custom theme"',
-    'console.log("Hello, World!");',
-    'theme.liquid.render()',
-    'product.json'
+    'console.log("Hello, Shopify!");',
+    'product.json.liquid',
   ];
 
   useEffect(() => {
     setIsVisible(true);
     
+    // Role cycling animation
     const roleInterval = setInterval(() => {
-      setIsAnimating(true);
+      setIsAnimatingRole(true);
       setTimeout(() => {
         setCurrentRole((prev) => (prev + 1) % roles.length);
-        setIsAnimating(false);
-      }, 500);
-    }, 3000);
+        setIsAnimatingRole(false);
+      }, 300);
+    }, 4000);
 
-    let currentSnippet = 0;
-    let currentChar = 0;
+    // Improved type-and-delete animation
+    let snippetIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
     const typeInterval = setInterval(() => {
-      if (currentChar < codeSnippets[currentSnippet].length) {
-        setTypedText(codeSnippets[currentSnippet].substring(0, currentChar + 1));
-        currentChar++;
-      } else {
-        setTimeout(() => {
-          currentSnippet = (currentSnippet + 1) % codeSnippets.length;
-          currentChar = 0;
-          setTypedText('');
-        }, 2000);
-      }
-    }, 100);
+        const currentSnippet = codeSnippets[snippetIndex];
+        if (isDeleting) {
+            setTypedText(currentSnippet.substring(0, charIndex - 1));
+            charIndex--;
+            if (charIndex === 0) {
+                isDeleting = false;
+                snippetIndex = (snippetIndex + 1) % codeSnippets.length;
+            }
+        } else {
+            setTypedText(currentSnippet.substring(0, charIndex + 1));
+            charIndex++;
+            if (charIndex === currentSnippet.length) {
+                setTimeout(() => isDeleting = true, 1500);
+            }
+        }
+    }, isDeleting ? 60 : 120);
+
+    // Mouse parallax effect
+    const handleMouseMove = (e) => {
+        const { clientX, clientY } = e;
+        const x = (clientX - window.innerWidth / 2) / 40;
+        const y = (clientY - window.innerHeight / 2) / 40;
+        setParallaxOffset({ x, y });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       clearInterval(roleInterval);
       clearInterval(typeInterval);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
+  // NEW & IMPROVED ANIMATIONS
   const animationStyles = `
-    @keyframes slide-fade-in {
-      from { opacity: 0; transform: translateY(1em); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes pop-in {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
-    @keyframes slide-fade-out {
-      from { opacity: 1; transform: translateY(0); }
-      to { opacity: 0; transform: translateY(-1em); }
+    .animate-pop-in { animation: pop-in 0.6s ease-out forwards; }
+
+    @keyframes char-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    .role-text {
-      display: inline-block;
-      transition: all 0.5s ease-in-out;
-      animation-duration: 0.5s;
-      animation-timing-function: ease-in-out;
-      animation-fill-mode: forwards;
+    .char-animate { 
+        display: inline-block; 
+        animation: char-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
-    .fade-in { animation-name: slide-fade-in; }
-    .fade-out { animation-name: slide-fade-out; }
+    
+    @keyframes role-slide-up-out { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-100%); } }
+    @keyframes role-slide-up-in { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
+    .role-text-anim { display: inline-block; animation-duration: 0.4s; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); animation-fill-mode: forwards; }
+    .role-out { animation-name: role-slide-up-out; }
+    .role-in { animation-name: role-slide-up-in; }
+    
+    .text-gradient { background: linear-gradient(90deg, #34d399, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   `;
 
   const trustMetrics = [
-    { icon: Award, value: '3+', label: 'Years Experience', color: 'text-yellow-400' },
-    { icon: Code, value: '49+', label: 'Projects Delivered', color: 'text-blue-400' },
-    { icon: Star, value: '27+', label: 'Custom Stores Built', color: 'text-green-400' },
-    { icon: Users, value: 'Top', label: 'D2C & B2B Brands', color: 'text-purple-400' }
+    { icon: Award, value: '3+', label: 'Years Experience' },
+    { icon: Rocket, value: '49+', label: 'Projects Delivered' },
+    { icon: Layers, value: '27+', label: 'Custom Themes' },
+    { icon: Users, value: 'Top', label: 'D2C & B2B Brands' }
   ];
 
   const performanceMetrics = [
-    { label: 'Conversion Boost', value: '37%', color: 'text-green-400' },
-    { label: 'Mobile Uplift', value: '30%', color: 'text-blue-400' },
-    { label: 'Load Time Cut', value: '45%', color: 'text-yellow-400' },
-    { label: 'Bounce Rate Drop', value: '22%', color: 'text-purple-400' }
+    { icon: TrendingUp, label: 'Conversion Boost', value: '37%', color: 'text-green-400' },
+    { icon: Smartphone, label: 'Mobile Uplift', value: '30%', color: 'text-blue-400' },
+    { icon: Zap, label: 'Load Time Cut', value: '45%', color: 'text-yellow-400' },
   ];
+  
+  const name = "Tanuj Rajput";
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black hero-bg-pattern pt-20">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black hero-bg-pattern pt-20 pb-20">
       <style>{animationStyles}</style>
       <div className="code-rain"></div>
       
+      {/* --- KEPT THE ORIGINAL FLOATING ELEMENTS --- */}
       <div className="absolute inset-0 overflow-hidden opacity-30">
         <div className="floating-element absolute top-32 right-32 w-20 h-20 bg-green-500/10 rounded-full border border-green-500/20 flex items-center justify-center"><Brackets className="w-6 h-6 text-green-500/60" /></div>
         <div className="floating-element absolute bottom-40 left-32 w-16 h-16 bg-green-500/10 rounded-full border border-green-500/20 flex items-center justify-center"><Terminal className="w-5 h-5 text-green-500/60" /></div>
@@ -158,56 +197,76 @@ const Hero = () => {
         <div className="floating-element absolute bottom-1/3 right-1/3 w-14 h-14 bg-purple-500/10 rounded-full border border-purple-500/20 flex items-center justify-center"><Layers className="w-4 h-4 text-purple-500/60" /></div>
         <div className="floating-element absolute top-1/2 left-1/6 w-16 h-16 bg-yellow-500/10 rounded-full border border-yellow-500/20 flex items-center justify-center"><Globe className="w-5 h-5 text-yellow-500/60" /></div>
       </div>
+      <div className="absolute top-28 left-20 code-snippet px-4 py-2 rounded-lg text-green-400 text-sm opacity-60 font-mono"><span className="typing-animation">{typedText}</span><span className="animate-ping">_</span></div>
 
-      <div className="absolute top-28 left-20 code-snippet px-4 py-2 rounded-lg text-green-400 text-sm floating-element opacity-60"><span className="typing-animation">{typedText}</span></div>
-      <div className="absolute top-40 right-24 code-snippet px-3 py-2 rounded-lg text-blue-400 text-xs floating-element opacity-50">shopify theme dev</div>
-      <div className="absolute bottom-32 left-24 code-snippet px-3 py-2 rounded-lg text-purple-400 text-xs floating-element opacity-50">liquid.render()</div>
-
-      <div className="container mx-auto px-6 text-center relative z-10 pt-12">
-        <div className="max-w-6xl mx-auto">
-          <div className={`${isVisible ? 'animate-fade-in-up' : ''} mb-12`}>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">Tanuj Rajput</h1>
-            <div className="h-12 relative overflow-hidden">
-               <h2 className={`text-xl md:text-3xl font-medium text-gradient absolute w-full left-0 right-0 role-text ${isAnimating ? 'fade-out' : 'fade-in'}`}>{roles[currentRole]}</h2>
+      <div className="container mx-auto px-6 text-center relative z-10">
+        <div 
+          className="max-w-4xl mx-auto"
+          style={{ transform: `translate(${parallaxOffset.x}px, ${parallaxOffset.y}px)`, transition: 'transform 0.1s linear' }}
+        >
+          <div className={`${isVisible ? 'opacity-100' : 'opacity-0'} mb-8`}>
+            {/* --- IMPROVED NAME ANIMATION --- */}
+            <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
+              {name.split("").map((char, index) => (
+                <span key={index} className="char-animate opacity-0" style={{ animationDelay: `${index * 50}ms` }}>
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </h1>
+            {/* --- IMPROVED ROLE ANIMATION --- */}
+            <div className="h-10 md:h-12 relative overflow-hidden text-2xl md:text-3xl font-semibold">
+               <span key={currentRole} className={`role-text-anim absolute w-full left-0 right-0 ${isAnimatingRole ? 'role-out' : 'role-in'} text-gradient`}>{roles[currentRole]}</span>
             </div>
-            <p className="text-base md:text-lg text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">Shopify expert crafting high-converting, fast-loading stores with Liquid, JavaScript, and a focus on mobile-first UX for D2C and B2B brands.</p>
+            <p className={`text-base md:text-lg text-gray-400 mt-6 max-w-3xl mx-auto leading-relaxed char-animate opacity-0`} style={{ animationDelay: `${name.length * 50 + 100}ms` }}>
+              Shopify expert crafting high-converting, fast-loading stores with Liquid, JavaScript, and a focus on mobile-first UX for D2C and B2B brands.
+            </p>
           </div>
 
-          {/* Trust Metrics with hover effect */}
-          <div className={`${isVisible ? 'animate-fade-in-up delay-1' : ''} grid grid-cols-2 md:grid-cols-4 gap-6 mb-8`}>
-            {trustMetrics.map((metric, index) => {
-              const Icon = metric.icon;
-              return (
-                <div key={index} className="trust-badge p-6 rounded-xl text-center transition-all duration-300 hover:scale-105 hover:bg-green-500/10 hover:shadow-lg hover:shadow-green-500/20">
-                  <Icon className={`w-6 h-6 ${metric.color} mx-auto mb-3`} />
-                  <div className="text-2xl font-bold text-white mb-1">{metric.value}</div>
-                  <div className="text-gray-400 text-sm">{metric.label}</div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Performance Metrics with animated numbers */}
-          <div className={`${isVisible ? 'animate-fade-in-up delay-2' : ''} flex flex-wrap justify-center gap-8 mb-12`}>
-            {performanceMetrics.map((metric, index) => (
-              <div key={index} className="text-center">
-                <div className={`text-lg font-bold ${metric.color} mb-1`}>
-                    <AnimatedNumber value={metric.value} />
-                </div>
-                <div className="text-gray-500 text-sm">{metric.label}</div>
+          {/* --- IMPROVED METRIC BOXES ANIMATION --- */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+            {trustMetrics.map((metric, index) => (
+              <div key={index} className={`trust-badge bg-gray-900/50 p-6 rounded-xl text-center transition-all duration-300 hover:scale-105 hover:bg-green-500/10 hover:shadow-lg hover:shadow-green-500/20 border border-gray-800 animate-pop-in opacity-0`} style={{ animationDelay: `${300 + index * 100}ms` }}>
+                <metric.icon className="w-7 h-7 text-green-400 mx-auto mb-3" />
+                <div className="text-3xl font-bold text-white mb-1"><AnimatedNumber value={metric.value} /></div>
+                <div className="text-gray-400 text-sm">{metric.label}</div>
               </div>
             ))}
           </div>
 
-          <div className={`${isVisible ? 'animate-fade-in-up delay-3' : ''} flex flex-col sm:flex-row gap-4 justify-center mb-12`}>
-            <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className="btn-shopify px-8 py-4 rounded-lg font-semibold text-white flex items-center justify-center gap-2"><Code className="w-5 h-5" />View My Work</button>
-            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="px-8 py-4 rounded-lg font-semibold text-white border-2 border-gray-800 hover:border-green-500 transition-colors flex items-center justify-center gap-2"><Mail className="w-5 h-5" />Let's Connect</button>
+          {/* --- IMPROVED PERFORMANCE METRICS --- */}
+          <div className="flex flex-wrap justify-center gap-6 mb-12">
+            {performanceMetrics.map((metric, index) => (
+              <div key={index} className={`flex items-center gap-3 animate-pop-in opacity-0`} style={{ animationDelay: `${700 + index * 100}ms` }}>
+                <div className="p-2 bg-gray-800 rounded-md"><metric.icon className={`w-6 h-6 ${metric.color}`} /></div>
+                <div>
+                  <div className="text-gray-400 text-sm">{metric.label}</div>
+                  <div className={`text-2xl font-bold text-white`}>
+                      <AnimatedNumber value={metric.value} />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div className={`${isVisible ? 'animate-fade-in-up delay-4' : ''} flex justify-center gap-6 mb-16`}>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-green-500 transition-colors backdrop-blur-sm"><Github className="w-6 h-6 text-gray-400 hover:text-green-500 transition-colors" /></a>
-            <a href="https://linkedin.com/in/tanuj-rajput-9080901a5/" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-green-500 transition-colors backdrop-blur-sm"><Linkedin className="w-6 h-6 text-gray-400 hover:text-green-500 transition-colors" /></a>
-            <a href="mailto:tanujrajput.dev@gmail.com" className="p-3 bg-gray-900/50 rounded-lg border border-gray-800 hover:border-green-500 transition-colors backdrop-blur-sm"><Mail className="w-6 h-6 text-gray-400 hover:text-green-500 transition-colors" /></a>
+          <div className={`flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-pop-in opacity-0`} style={{ animationDelay: '1000ms' }}>
+            <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className="px-8 py-3 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-500 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg shadow-green-600/20">
+                <Code className="w-5 h-5" />View My Work
+            </button>
+            <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="px-8 py-3 rounded-lg font-semibold text-gray-300 border-2 border-gray-700 hover:border-gray-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+                <Mail className="w-5 h-5" />Let's Connect
+            </button>
+          </div>
+
+          <div className={`flex justify-center gap-4 animate-pop-in opacity-0`} style={{ animationDelay: '1100ms' }}>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-900/50 rounded-full border border-gray-800 hover:border-green-400 transition-colors group backdrop-blur-sm transform hover:scale-110">
+              <Github className="w-6 h-6 text-gray-400 group-hover:text-green-400 transition-colors" />
+            </a>
+            <a href="https://linkedin.com/in/tanuj-rajput-9080901a5/" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-900/50 rounded-full border border-gray-800 hover:border-green-400 transition-colors group backdrop-blur-sm transform hover:scale-110">
+              <Linkedin className="w-6 h-6 text-gray-400 group-hover:text-green-400 transition-colors" />
+            </a>
+            <a href="mailto:tanujrajput.dev@gmail.com" className="p-3 bg-gray-900/50 rounded-full border border-gray-800 hover:border-green-400 transition-colors group backdrop-blur-sm transform hover:scale-110">
+              <Mail className="w-6 h-6 text-gray-400 group-hover:text-green-400 transition-colors" />
+            </a>
           </div>
         </div>
       </div>
