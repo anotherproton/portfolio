@@ -108,7 +108,7 @@ const About = () => {
             <h3 className={`text-3xl font-bold mb-8 text-white transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>My Journey</h3>
             <div className="relative">
               {/* The main timeline bar that will be "drawn" */}
-              <div className={`absolute left-[1px] top-0 h-full w-px bg-white/10 transition-all duration-1000 ease-out ${isVisible ? 'scale-y-100' : 'scale-y-0'}`} style={{transformOrigin: 'top'}}></div>
+              <div className={`absolute left-[1px] top-0 w-px bg-white/10 transition-all duration-1000 ease-out ${isVisible ? 'scale-y-100' : 'scale-y-0'}`} style={{transformOrigin: 'top'}}></div>
               {journeyData.map((item, index) => (
                 <TimelineItem 
                   key={index} 
