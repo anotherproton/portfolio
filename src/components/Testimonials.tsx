@@ -1,224 +1,183 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Star, Quote, ChevronLeft, ChevronRight, Award, ThumbsUp, Briefcase } from 'lucide-react';
+import { Quote, Star, ChevronLeft, ChevronRight, Briefcase, Award, ThumbsUp } from 'lucide-react';
 
+// --- Reusable Component 1: AnimatedNumber (for stats) ---
+const AnimatedNumber = ({ value }) => {
+    const [currentValue, setCurrentValue] = useState(0);
+    const elementRef = useRef(null);
+    
+    useEffect(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                let startValue = 0;
+                const endValue = parseInt(value, 10);
+                const duration = 1500;
+                const startTime = Date.now();
+                const animate = () => {
+                    const now = Date.now();
+                    const progress = Math.min((now - startTime) / duration, 1);
+                    const easedProgress = 1 - Math.pow(1 - progress, 3);
+                    const nextValue = startValue + easedProgress * (endValue - startValue);
+                    setCurrentValue(nextValue);
+                    if (progress < 1) requestAnimationFrame(animate);
+                };
+                requestAnimationFrame(animate);
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 });
+        if (elementRef.current) observer.observe(elementRef.current);
+        return () => observer.disconnect();
+    }, [value]);
+
+    return <span ref={elementRef}>{Math.round(currentValue)}{value.includes('+') ? '+' : ''}</span>;
+};
+
+
+// --- Main Testimonials Component ---
 const Testimonials = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  // useRef to hold the interval ID, so it doesn't get reset on every render
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [current, setCurrent] = useState(0);
+  const intervalRef = useRef(null);
+  const sectionRef = useRef(null);
 
   const testimonials = [
-    {
-      name: 'Asha Mewara',
-      role: 'Shopify Project Manager',
-      company: 'Mahina.co',
-      logo: 'https://ik.imagekit.io/6cu3kzcxt/Mahina_Logo_330x.avif?updatedAt=1749979000137',
-      rating: 5,
-      text: "Tanuj's expertise in theme development is remarkable. He took our Figma designs and turned them into a high-performing, beautiful theme. The new upsell and bundle features have directly contributed to our AOV growth.",
-      project: 'Custom Theme & AOV Strategy',
-      result: '+28% Average Order Value'
-    },
-    {
-      name: 'Sarah Slate',
-      role: 'Head of E-Commerce',
-      company: 'Mum & You',
-      logo: 'https://ik.imagekit.io/6cu3kzcxt/logo-mumandyoudotcom.webp?updatedAt=1749979000523',
-      rating: 5,
-      text: "The migration from Magento to Shopify was a massive undertaking, and Tanuj handled it flawlessly. His work on our custom subscription model has been a game-changer for customer retention. A brilliant and reliable developer.",
-      project: 'Magento to Shopify Migration',
-      result: 'Custom Subscription Model'
-    },
-    {
-      name: 'Amit Kumar',
-      role: 'Founder',
-      company: 'WeMust.com',
-      logo: 'https://ik.imagekit.io/6cu3kzcxt/We_Must_Logo_New.avif?updatedAt=1749979000620',
-      rating: 5,
-      text: "The custom automation system Tanuj built for us has saved countless hours of manual work. His ability to understand complex requirements and deliver an elegant, effective solution is exactly what we needed.",
-      project: 'Dynamic Order & Invoice Automation',
-      result: '-90% Manual Work'
-    },
-    {
-      name: 'Kavya Sethi',
-      role: 'Manager of E-commerce',
-      company: 'Nicobar.com',
-      logo: 'https://ik.imagekit.io/6cu3kzcxt/nclogo.png?updatedAt=1749978988453',
-      rating: 5,
-      text: "Tanuj's performance optimizations had a direct impact on our site's speed and user experience. The custom filtering he implemented improved product discovery and our click-through rate saw a significant lift.",
-      project: 'Performance & UX Optimization',
-      result: '+12% Click-Through Rate'
-    }
+    { name: 'Asha Mewara', role: 'Shopify Project Manager', company: 'Mahina.co', logo: 'https://ik.imagekit.io/6cu3kzcxt/Mahina_Logo_330x.avif?updatedAt=1749979000137', text: "Tanuj's expertise in theme development is remarkable. He took our Figma designs and turned them into a high-performing, beautiful theme. The new features have directly contributed to our AOV growth.", result: '+28% AOV' },
+    { name: 'Sarah Slate', role: 'Head of E-Commerce', company: 'Mum & You', logo: 'https://ik.imagekit.io/6cu3kzcxt/logo-mumandyoudotcom.webp?updatedAt=1749979000523', text: "The migration from Magento was a massive undertaking, and Tanuj handled it flawlessly. His work on our custom subscription model has been a game-changer for customer retention. A brilliant developer.", result: 'Custom Subscriptions' },
+    { name: 'Amit Kumar', role: 'Founder', company: 'WeMust.com', logo: 'https://ik.imagekit.io/6cu3kzcxt/We_Must_Logo_New.avif?updatedAt=1749979000620', text: "The automation system Tanuj built has saved countless hours of manual work. His ability to understand complex requirements and deliver an elegant solution is exactly what we needed.", result: '-90% Manual Work' },
+    { name: 'Kavya Sethi', role: 'E-commerce Manager', company: 'Nicobar.com', logo: 'https://ik.imagekit.io/6cu3kzcxt/nclogo.png?updatedAt=1749978988453', text: "Tanuj's performance optimizations had a direct impact on our site's speed. The custom filtering he implemented improved product discovery and our click-through rate saw a significant lift.", result: '+12% CTR' }
+  ];
+  
+  // CONSOLIDATED STATS for a cleaner mobile layout
+  const statsData = [
+    { icon: Award, title: 'Experience & Scale', metrics: [{ value: '3+', label: 'Years Experience' }, { value: '49+', label: 'Projects Delivered' }] },
+    { icon: ThumbsUp, title: 'Client Satisfaction', metrics: [{ value: '27+', label: 'Custom Stores' }, { value: '100%', label: 'Positive Feedback' }] }
   ];
 
-  // Function to start the auto-scroll timer
   const startSlider = () => {
-    // Clear any existing interval
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    // Set a new interval
+    if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 3000); // 3 seconds
+      setCurrent(prev => (prev === testimonials.length - 1 ? 0 : prev + 1));
+    }, 5000); // Increased interval for better readability
   };
 
-  // Function to stop the auto-scroll timer
   const stopSlider = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+    if (intervalRef.current) clearInterval(intervalRef.current);
   };
 
-  // Start the slider when the component mounts
   useEffect(() => {
     startSlider();
-    // Clean up the interval when the component unmounts
     return () => stopSlider();
-  }, []);
+  }, [testimonials.length]);
 
-
-  const handleNavClick = (index: number) => {
-    setCurrentTestimonial(index);
-    // Restart the timer whenever user manually navigates
-    startSlider();
+  const navigate = (direction) => {
+    const newIndex = direction === 'next' 
+        ? (current === testimonials.length - 1 ? 0 : current + 1)
+        : (current === 0 ? testimonials.length - 1 : current - 1);
+    setCurrent(newIndex);
+    startSlider(); // Restart timer on manual navigation
   };
-  
-  const nextTestimonial = () => {
-     handleNavClick((currentTestimonial + 1) % testimonials.length);
-  };
-  
-  const prevTestimonial = () => {
-     handleNavClick((currentTestimonial - 1 + testimonials.length) % testimonials.length);
-  };
-
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const element = document.getElementById('testimonials');
-    if (element) observer.observe(element);
-
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.1 });
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => {
-        if(element) observer.unobserve(element)
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
     };
   }, []);
-  
-  const currentClient = testimonials[currentTestimonial];
 
   return (
-    <section id="testimonials" className="section-padding bg-gray-900/30">
-      <div className="container mx-auto px-6">
-        <div className={`${isVisible ? 'animate-fade-in-up' : ''} text-center mb-16`}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+    <section id="testimonials" ref={sectionRef} className="py-20 md:py-28 bg-black relative overflow-hidden">
+       <div className="absolute inset-0 z-0 opacity-20">
+            <div className="absolute top-1/2 -translate-y-1/2 left-0 h-full w-1/2 bg-gradient-to-r from-green-500/10 to-transparent blur-3xl"></div>
+            <div className="absolute top-1/2 -translate-y-1/2 right-0 h-full w-1/2 bg-gradient-to-l from-purple-500/10 to-transparent blur-3xl"></div>
+        </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
             Client <span className="text-gradient">Testimonials</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-white/60 max-w-3xl mx-auto">
             Don't just take my word for it. Here's what my clients say about our collaboration.
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          {/* Main Testimonial */}
-          <div 
-            className={`${isVisible ? 'animate-fade-in-up delay-1' : ''} bg-black/50 rounded-2xl border border-gray-800 p-8 md:p-12 mb-12`}
+        {/* --- NEW Carousel Container --- */}
+        <div 
+            className="relative h-[480px] md:h-[420px] mb-16"
             onMouseEnter={stopSlider}
             onMouseLeave={startSlider}
-          >
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <Quote className="w-8 h-8 text-green-500" />
-                <div className="flex gap-1">
-                  {[...Array(currentClient.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-              </div>
-              
-              <blockquote className="text-xl md:text-2xl text-gray-300 leading-relaxed mb-6 italic min-h-[150px] md:min-h-[120px]">
-                "{currentClient.text}"
-              </blockquote>
-              
-              {/* This is the responsive container that was fixed */}
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div className="flex items-center gap-4">
-                  <img src={currentClient.logo} alt={`${currentClient.company} logo`} className="h-12 w-auto bg-white/10 p-2 rounded-lg object-contain" />
+        >
+          {testimonials.map((testimonial, index) => {
+            const offset = index - current;
+            const isVisibleOnMobile = index === current;
+            const style = {
+                transform: `translateX(${offset * 100}%) scale(${index === current ? 1 : 0.8})`,
+                opacity: index === current ? 1 : 0.4,
+                zIndex: testimonials.length - Math.abs(offset),
+            };
+
+            return (
+              <div 
+                key={index} 
+                className={`absolute w-full h-full transition-all duration-500 ease-in-out p-2 ${!isVisibleOnMobile && 'hidden md:block'}`}
+                style={style}
+              >
+                <div className="h-full bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-2xl p-8 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-xl font-bold text-white">{currentClient.name}</h4>
-                    <p className="text-green-500 font-medium">{currentClient.role}</p>
+                    <Quote className="w-10 h-10 text-green-400 mb-4" />
+                    <blockquote className="text-lg md:text-xl text-white/80 leading-relaxed italic">
+                      "{testimonial.text}"
+                    </blockquote>
+                  </div>
+                  <div className="mt-6 border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div className="flex items-center gap-4">
+                      <img src={testimonial.logo} alt={`${testimonial.company} logo`} className="h-12 w-12 bg-white/10 p-1.5 rounded-full object-contain" />
+                      <div>
+                        <p className="font-bold text-white text-lg">{testimonial.name}</p>
+                        <p className="text-white/60">{testimonial.role}</p>
+                      </div>
+                    </div>
+                    <div className="bg-green-500/10 border border-green-500/20 text-green-300 text-sm font-semibold px-3 py-1.5 rounded-full">
+                      Result: {testimonial.result}
+                    </div>
                   </div>
                 </div>
-                
-                <div className="text-left md:text-right">
-                  <div className="text-sm text-gray-500 mb-1">Project Focus:</div>
-                  <div className="text-gray-300 font-medium mb-2">{currentClient.project}</div>
-                  <div className="text-green-500 font-bold text-lg">{currentClient.result}</div>
-                </div>
+              </div>
+            );
+          })}
+           {/* Navigation Arrows */}
+          <button onClick={() => navigate('prev')} className="absolute left-0 md:-left-8 top-1/2 -translate-y-1/2 z-50 p-3 bg-white/10 border border-white/20 rounded-full hover:bg-white/20 transition-all" aria-label="Previous testimonial">
+              <ChevronLeft className="w-6 h-6 text-white" />
+          </button>
+          <button onClick={() => navigate('next')} className="absolute right-0 md:-right-8 top-1/2 -translate-y-1/2 z-50 p-3 bg-white/10 border border-white/20 rounded-full hover:bg-white/20 transition-all" aria-label="Next testimonial">
+              <ChevronRight className="w-6 h-6 text-white" />
+          </button>
+        </div>
+
+        {/* --- NEW Consolidated Stats Section --- */}
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+          {statsData.map((statGroup, index) => (
+            <div key={index} className="bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-2xl p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <statGroup.icon className="w-8 h-8 text-green-400" />
+                <h3 className="text-2xl font-bold text-white">{statGroup.title}</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                {statGroup.metrics.map((metric, i) => (
+                  <div key={i}>
+                    <p className="text-4xl font-bold text-green-400"><AnimatedNumber value={metric.value} /></p>
+                    <p className="text-white/60">{metric.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
-
-          {/* Navigation */}
-          <div className={`${isVisible ? 'animate-fade-in-up delay-2' : ''} flex items-center justify-center gap-4 mb-12`}>
-            <button
-              onClick={prevTestimonial}
-              className="p-3 bg-gray-800 rounded-lg border border-gray-700 hover:border-green-500 transition-colors"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-5 h-5 text-gray-400 hover:text-green-500 transition-colors" />
-            </button>
-            
-            <div className="flex gap-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleNavClick(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentTestimonial ? 'bg-green-500' : 'bg-gray-700 hover:bg-gray-500'
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
-              ))}
-            </div>
-            
-            <button
-              onClick={nextTestimonial}
-              className="p-3 bg-gray-800 rounded-lg border border-gray-700 hover:border-green-500 transition-colors"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-5 h-5 text-gray-400 hover:text-green-500 transition-colors" />
-            </button>
-          </div>
-
-          {/* Stats Grid */}
-          <div className={`${isVisible ? 'animate-fade-in-up delay-3' : ''} grid grid-cols-2 md:grid-cols-4 gap-6`}>
-            <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
-              <Award className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">3+</div>
-              <div className="text-gray-400 text-sm">Years of Experience</div>
-            </div>
-            <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
-              <Briefcase className="w-8 h-8 text-green-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">49+</div>
-              <div className="text-gray-400 text-sm">Projects Delivered</div>
-            </div>
-            <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
-              <ThumbsUp className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">27+</div>
-              <div className="text-gray-400 text-sm">Custom Stores Built</div>
-            </div>
-            <div className="bg-black/50 p-6 rounded-xl border border-gray-800 text-center">
-              <Star className="w-8 h-8 text-purple-400 mx-auto mb-3" />
-              <div className="text-2xl font-bold text-white mb-1">5/5</div>
-              <div className="text-gray-400 text-sm">Client Rating</div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
