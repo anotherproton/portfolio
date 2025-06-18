@@ -2,26 +2,23 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Code2, Database, Palette, Zap, Globe, Smartphone, Copy, CheckCircle, BrainCircuit, Rocket, Feather } from 'lucide-react';
 
 // --- Custom Hook 1: useTypewriter ---
-// A reusable hook to create the live typing animation for the code block.
 const useTypewriter = (textToType, speed = 30) => {
     const [typedText, setTypedText] = useState('');
-    const currentIndex = useRef(0);
-
+    
     useEffect(() => {
-        // Reset whenever the text to type changes
         setTypedText('');
-        currentIndex.current = 0;
-
-        const typingInterval = setInterval(() => {
-            if (currentIndex.current < textToType.length) {
-                setTypedText(prev => prev + textToType[currentIndex.current]);
-                currentIndex.current += 1;
-            } else {
-                clearInterval(typingInterval);
-            }
-        }, speed);
-
-        return () => clearInterval(typingInterval);
+        if (textToType) {
+            let i = 0;
+            const typingInterval = setInterval(() => {
+                if (i < textToType.length) {
+                    setTypedText(prev => prev + textToType.charAt(i));
+                    i++;
+                } else {
+                    clearInterval(typingInterval);
+                }
+            }, speed);
+            return () => clearInterval(typingInterval);
+        }
     }, [textToType, speed]);
 
     return typedText;
@@ -39,12 +36,13 @@ const useMouseGlow = (ref) => {
                 ref.current.style.setProperty('--y', `${y}px`);
             }
         };
-        if (ref.current) {
-            ref.current.addEventListener('mousemove', handleMouseMove);
+        const currentRef = ref.current;
+        if (currentRef) {
+            currentRef.addEventListener('mousemove', handleMouseMove);
         }
         return () => {
-            if (ref.current) {
-                ref.current.removeEventListener('mousemove', handleMouseMove);
+            if (currentRef) {
+                currentRef.removeEventListener('mousemove', handleMouseMove);
             }
         };
     }, [ref]);
@@ -54,11 +52,10 @@ const useMouseGlow = (ref) => {
 // --- Main TechStack Component ---
 const TechStack = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [activeCategory, setActiveCategory] = useState(0); // To track the selected category
+    const [activeCategory, setActiveCategory] = useState(0);
     const [copied, setCopied] = useState(false);
     const sectionRef = useRef(null);
 
-    // UPDATED: Added a 'code' property to each category for the interactive display.
     const techCategories = [
         {
             icon: Globe, title: 'E-commerce',
@@ -82,16 +79,14 @@ import { useState, useEffect } from 'react';
 
 function useData(url) {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(url)
       .then(res => res.json())
-      .then(setData)
-      .finally(() => setLoading(false));
+      .then(setData);
   }, [url]);
 
-  return { data, loading };
+  return { data };
 }`
         },
         {
@@ -107,7 +102,6 @@ const HeavyComponent = lazy(() =>
 function App() {
   return (
     <div>
-      <h1>My App</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <HeavyComponent />
       </Suspense>
@@ -152,8 +146,9 @@ app.listen(PORT, () => {
             }
         }, { threshold: 0.1 });
         if (sectionRef.current) observer.observe(sectionRef.current);
+        const currentSectionRef = sectionRef.current;
         return () => {
-            if (sectionRef.current) observer.unobserve(sectionRef.current);
+            if (currentSectionRef) observer.unobserve(currentSectionRef);
         };
     }, []);
     
@@ -163,7 +158,6 @@ app.listen(PORT, () => {
         setTimeout(() => setCopied(false), 2000);
     };
 
-    // NEW STYLES for the glow and syntax highlighting effect
     const newStyles = `
         .glow-card {
             position: relative;
@@ -172,22 +166,13 @@ app.listen(PORT, () => {
         .glow-card::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(
-                circle at var(--x) var(--y),
-                rgba(34, 197, 94, 0.15),
-                transparent 20%
-            );
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at var(--x) var(--y), rgba(34, 197, 94, 0.15), transparent 20%);
             border-radius: 1rem;
             opacity: 0;
             transition: opacity 0.3s;
         }
-        .glow-card:hover::before {
-            opacity: 1;
-        }
+        .glow-card:hover::before { opacity: 1; }
         .code-block .token-comment { color: #6a9955; }
         .code-block .token-keyword { color: #569cd6; }
         .code-block .token-string { color: #ce9178; }
@@ -196,6 +181,15 @@ app.listen(PORT, () => {
         .code-block .token-operator { color: #d4d4d4; }
         .code-block .token-tag { color: #4ec9b0; }
     `;
+
+    // A simple function for basic syntax highlighting
+    const highlightSyntax = (str) => {
+        return str
+            .replace(/(\/\/.*)/g, '<span class="token-comment">$1</span>')
+            .replace(/\b(const|let|var|function|import|from|export|return|if|else|for|of|in|require|=>|new|await|async|class|extends|module|exports)\b/g, '<span class="token-keyword">$1</span>')
+            .replace(/(\w+)(?=\()/g, '<span class="token-function">$1</span>')
+            .replace(/('.*?'|".*?"|`.*?`)/gs, '<span class="token-string">$1</span>');
+    };
 
     return (
         <section id="tech-stack" ref={sectionRef} className="py-20 md:py-28 bg-black relative overflow-hidden">
@@ -253,15 +247,12 @@ app.listen(PORT, () => {
                                     {copied ? 'Copied!' : 'Copy'}
                                 </button>
                             </div>
+                            {/* --- THIS IS THE CORRECTED CODE BLOCK --- */}
                             <pre className="p-6 text-sm overflow-x-auto min-h-[300px]">
-                                {/* Using a simplified syntax highlighting effect with regex and span wrapping */}
-                                <code dangerouslySetInnerHTML={{ __html: typedCode
-                                    .replace(/(\/\/.*)/g, '<span class="token-comment">$1</span>')
-                                    .replace(/\b(const|let|var|function|import|from|export|return|if|else|for|of|in)\b/g, '<span class="token-keyword">$1</span>')
-                                    .replace(/('.*?'|".*?"|`.*?`)/g, '<span class="token-string">$1</span>')
-                                }} />
-                                <span className="animate-ping">|</span>
-                            </code>
+                                <code>
+                                    <span dangerouslySetInnerHTML={{ __html: highlightSyntax(typedCode) }} />
+                                    <span className="animate-ping">|</span>
+                                </code>
                             </pre>
                         </div>
                         <div className="mt-6 bg-gradient-to-br from-white/5 to-transparent p-6 rounded-2xl border border-white/10">
