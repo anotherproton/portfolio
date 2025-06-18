@@ -1,217 +1,176 @@
-import React, { useEffect, useState } from 'react';
-import { ExternalLink, Github, Star, TrendingUp, Zap, Eye, BarChart3, Users, Clock } from 'lucide-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { ExternalLink, Github, Eye, Zap, TrendingUp, Briefcase, Sparkles, Wand2, CheckCircle, Clock } from 'lucide-react';
 
+// --- Reusable Component 1: Key Metric Badge ---
+// A small, graphical component to highlight an impressive result.
+const KeyMetric = ({ icon: Icon, value, label, isVisible, delay }) => (
+  <div className={`flex items-center gap-3 bg-white/5 p-3 rounded-lg border border-white/10 transition-all duration-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`} style={{ transitionDelay: delay }}>
+    <div className="flex-shrink-0 bg-green-500/10 p-2 rounded-full">
+      <Icon className="w-5 h-5 text-green-400" />
+    </div>
+    <div>
+      <p className="text-xl font-bold text-white">{value}</p>
+      <p className="text-sm text-white/60">{label}</p>
+    </div>
+  </div>
+);
+
+// --- Reusable Component 2: Project Detail Item ---
+// A component to display the Challenge, Action, and Result sections.
+const ProjectDetailItem = ({ icon: Icon, title, children, isVisible, delay }) => (
+  <div className={`transition-all duration-500 ease-out ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`} style={{ transitionDelay: delay }}>
+    <div className="flex items-center gap-3 mb-3">
+      <Icon className="w-6 h-6 text-green-400" />
+      <h4 className="text-xl font-bold text-white">{title}</h4>
+    </div>
+    <div className="pl-9 text-white/70 leading-relaxed">
+      {children}
+    </div>
+  </div>
+);
+
+
+// --- Main Projects Component ---
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.1 }
     );
-
-    const element = document.getElementById('projects');
-    if (element) observer.observe(element);
-
-    return () => observer.disconnect();
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
   }, []);
 
+  // UPDATED: The data structure is now much more detailed and narrative-driven.
   const projects = [
     {
       title: 'Mahina',
       category: 'D2C Brand & AOV Strategy',
-      description: 'Built a fully custom theme from a Figma design, focusing on increasing the Average Order Value (AOV) through strategic upsell and bundle integrations. Also enhanced customer service with WhatsApp chat and automated order emails.',
+      timeline: 'Jan 2024 – May 2024',
       image: 'https://ik.imagekit.io/6cu3kzcxt/Reusable-leakproof-period-underwear-online-_-Mahina-06-15-2025_02_30_PM.png?updatedAt=1749978229279',
-      technologies: ['Shopify', 'UX Design', 'AOV Strategy', 'WhatsApp Integration', 'Theme Optimization'],
       link: 'https://mahina.co',
-      metrics: {
-        aovBoost: '+28%',
-        speedScore: '95+',
-        resolutionTime: '-40%'
-      },
-      metricLabels: {
-        aovBoost: 'AOV Boost',
-        speedScore: 'PageSpeed Score',
-        resolutionTime: 'Faster Resolution'
-      },
-      metricIcons: {
-        aovBoost: TrendingUp,
-        speedScore: Zap,
-        resolutionTime: Clock,
-      },
-      featured: true,
-      year: 'mahina.co',
-      role: 'Lead Developer'
-    },
-    {
-      title: 'Mum & You',
-      category: 'Magento to Shopify Migration',
-      description: 'Led the large-scale migration of a UK brand from Magento to Shopify, ensuring complete data integrity and preserving SEO URLs. Developed a custom subscription model with recurring flows via Shopify APIs and built private apps to sync inventory and user data.',
-      image: 'https://ik.imagekit.io/6cu3kzcxt/mum-uk-06-15-2025_02_31_PM.png?updatedAt=1749978229304',
-      technologies: ['Shopify', 'Subscription Flows', 'Private Apps', 'SEO', 'Shopify API'],
-      link: 'https://mum-uk.myshopify.com',
-      metrics: {
-        migration: 'Seamless',
-        inventory: 'Synced',
-        theme: 'Custom'
-      },
-      metricLabels: {
-        migration: 'Migration',
-        inventory: 'Inventory',
-        theme: 'Theme'
-      },
-      metricIcons: {
-        migration: TrendingUp,
-        inventory: Zap,
-        theme: Star,
-      },
-      featured: false,
-      year: 'mumandyou.com',
-      role: 'Lead Developer'
+      challenge: "Increase the store's Average Order Value (AOV) and streamline customer support for a growing D2C brand.",
+      action: "Built a fully custom Shopify theme from a Figma design, integrating strategic upsell/cross-sell features and a direct WhatsApp support channel.",
+      results: "The new theme and integrations led to significant improvements in both revenue and customer satisfaction.",
+      keyMetrics: [
+        { icon: TrendingUp, value: '+28%', label: 'AOV Boost' },
+        { icon: Zap, value: '95+', label: 'PageSpeed Score' },
+        { icon: Clock, value: '-40%', label: 'Resolution Time' },
+      ],
+      technologies: ['Shopify', 'AOV Strategy', 'Theme Optimization', 'WhatsApp API'],
     },
     {
       title: 'WeMust',
       category: 'Automation & UX Optimization',
-      description: 'Led development of a dynamic order system with a live pricing calculator. Simplified cart and pricing logic to significantly improve checkout rates and developed a custom invoice automation system to drastically reduce manual work.',
+      timeline: 'Sep 2024 - Feb 2025',
       image: 'https://ik.imagekit.io/6cu3kzcxt/Best-Custom-DTF-Transfer-Printer-in-USA-_-We-Must-06-15-2025_02_31_PM.png?updatedAt=1749978229580',
-      technologies: ['Shopify', 'Liquid', 'JavaScript', 'UX Optimization', 'Automation'],
       link: 'https://wemust.com',
-      metrics: {
-        checkoutRate: '+20%',
-        manualWork: '-90%',
-        orderSystem: 'Dynamic'
-      },
-      metricLabels: {
-        checkoutRate: 'Checkout Rate',
-        manualWork: 'Manual Work',
-        orderSystem: 'Order System'
-      },
-      metricIcons: {
-        checkoutRate: BarChart3,
-        manualWork: Zap,
-        orderSystem: Star,
-      },
-      featured: false,
-      year: 'wemust.com',
-      role: 'Lead Developer'
+      challenge: "The complex DTF ordering process was causing high cart abandonment and required significant manual work for invoicing.",
+      action: "Engineered a dynamic order system with a live pricing calculator. Re-architected the cart logic and developed a custom invoice automation system.",
+      results: "The streamlined user experience and backend automation transformed operational efficiency and conversion rates.",
+       keyMetrics: [
+        { icon: CheckCircle, value: '+20%', label: 'Checkout Rate' },
+        { icon: TrendingUp, value: '-90%', label: 'Manual Work' },
+      ],
+      technologies: ['Shopify', 'JavaScript', 'UX Optimization', 'Automation'],
     },
     {
-      title: 'Nicobar',
-      category: 'Performance & UX',
-      description: 'Contributed to a highly visual, brand-heavy theme by optimizing loading times through script deferrals and asset compression. Built custom filtering and sorting to improve product discovery and click-through rates.',
-      image: 'https://ik.imagekit.io/6cu3kzcxt/Nicobar-Modern-mindful-India-rooted-designs-06-15-2025_02_33_PM.png?updatedAt=1749978200080',
-      technologies: ['Shopify', 'Liquid', 'Theme Development', 'Performance Optimization', 'UX Design'],
-      link: 'https://nicobar.com',
-      metrics: {
-        loadTime: '-42%',
-        ctr: '+12%',
-        filtering: 'Custom'
-      },
-      metricLabels: {
-        loadTime: 'Load Time',
-        ctr: 'CTR',
-        filtering: 'Advanced Filtering'
-      },
-      metricIcons: {
-        loadTime: Zap,
-        ctr: Eye,
-        filtering: Star,
-      },
-      featured: false,
-      year: 'nicobar.com',
-      role: 'Shopify Developer'
-    }
+      title: 'Mum & You',
+      category: 'Magento to Shopify Migration',
+      timeline: 'Apr 2025 – Jun 2025',
+      image: 'https://ik.imagekit.io/6cu3kzcxt/mum-uk-06-15-2025_02_31_PM.png?updatedAt=1749978229304',
+      link: 'https://mum-uk.myshopify.com',
+      challenge: "Migrate a large-scale UK brand from Magento to Shopify Plus without losing data integrity, SEO rankings, or subscription customers.",
+      action: "Executed a full data migration, built a custom subscription model via Shopify APIs, and developed private apps for real-time inventory and user data sync.",
+      results: "A seamless transition to a more powerful, scalable platform with enhanced, custom-built subscription functionality.",
+       keyMetrics: [
+        { icon: CheckCircle, value: 'Seamless', label: 'Data Migration' },
+        { icon: TrendingUp, value: 'Custom', label: 'Subscription Flow' },
+      ],
+      technologies: ['Shopify Plus', 'Subscription APIs', 'Private Apps', 'SEO'],
+    },
   ];
 
   return (
-    <section id="projects" className="section-padding bg-black">
-      <div className="container mx-auto px-6">
-        <div className={`${isVisible ? 'animate-fade-in-up' : ''} text-center mb-16`}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+    <section id="projects" ref={sectionRef} className="py-20 md:py-28 bg-black relative overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20">
+            <div className="absolute top-0 left-0 h-full w-1/2 bg-gradient-to-r from-green-500/10 to-transparent blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 h-full w-1/2 bg-gradient-to-l from-purple-500/10 to-transparent blur-3xl"></div>
+        </div>
+      <div className="container mx-auto px-4 relative z-10">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
             Featured <span className="text-gradient">Work</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            A showcase of projects that demonstrate my passion for creating exceptional e-commerce experiences that drive results.
+          <p className="text-lg text-white/60 max-w-3xl mx-auto">
+            A showcase of projects where I solved complex challenges and delivered measurable results.
           </p>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-20">
           {projects.map((project, index) => (
             <div
               key={index}
-              className={`${isVisible ? `animate-fade-in-up delay-${index % 2 + 1}` : ''} card-hover bg-gray-900/30 rounded-2xl border border-gray-800 overflow-hidden ${project.featured ? 'ring-1 ring-green-500/30' : ''}`}
+              className={`group grid grid-cols-1 lg:grid-cols-2 gap-8 items-center transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${index * 200}ms` }}
             >
-              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-0 ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
-                <div className={`relative overflow-hidden ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-64 lg:h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                  {project.featured && (
-                    <div className="absolute top-4 left-4 bg-green-500 text-black px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                      <Star className="w-4 h-4" />
-                      Featured
+              {/* Image Column */}
+              <a href={project.link} target="_blank" rel="noopener noreferrer" className={`relative rounded-2xl overflow-hidden border border-white/10 shadow-lg shadow-black/30 ${index % 2 === 1 ? 'lg:order-last' : ''}`}>
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/40 transition-opacity duration-300 opacity-0 group-hover:opacity-100 flex items-center justify-center">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-white/10 border border-white/20 rounded-lg backdrop-blur-sm">
+                        <Eye className="w-5 h-5 text-white" />
+                        <span className="text-white font-semibold">View Live Site</span>
                     </div>
-                  )}
-                  <div className="absolute top-4 right-4 bg-black/80 text-white px-3 py-1 rounded-full text-sm">
-                    {project.year}
-                  </div>
+                </div>
+              </a>
+
+              {/* Content Column */}
+              <div className="flex flex-col">
+                <p className="text-green-400 font-semibold mb-1">{project.category}</p>
+                <h3 className="text-4xl font-bold mb-2 text-white">{project.title}</h3>
+                <p className="text-white/50 mb-6">{project.timeline}</p>
+                
+                <div className="space-y-6">
+                    <ProjectDetailItem title="The Challenge" icon={Sparkles} isVisible={isVisible} delay={`${index * 200 + 300}ms`}>
+                        <p>{project.challenge}</p>
+                    </ProjectDetailItem>
+                    <ProjectDetailItem title="The Action" icon={Wand2} isVisible={isVisible} delay={`${index * 200 + 400}ms`}>
+                        <p>{project.action}</p>
+                    </ProjectDetailItem>
+                     <ProjectDetailItem title="The Results" icon={CheckCircle} isVisible={isVisible} delay={`${index * 200 + 500}ms`}>
+                        <p className="mb-4">{project.results}</p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            {project.keyMetrics.map((metric, i) => (
+                                <KeyMetric key={i} {...metric} isVisible={isVisible} delay={`${index * 200 + 600 + i * 100}ms`} />
+                            ))}
+                        </div>
+                    </ProjectDetailItem>
                 </div>
                 
-                <div className={`p-8 lg:p-12 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-green-500 text-sm font-semibold">{project.category}</span>
-                    <span className="text-gray-600">•</span>
-                    <span className="text-gray-500 text-sm">{project.role}</span>
-                  </div>
-                  
-                  <h3 className="text-3xl font-bold mb-4 text-white">{project.title}</h3>
-                  <p className="text-gray-400 mb-6 leading-relaxed text-lg">{project.description}</p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-8">
+                 <div className="flex flex-wrap gap-2 mt-8">
                     {project.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-sm border border-gray-700"
-                      >
-                        {tech}
-                      </span>
+                      <span key={techIndex} className="px-3 py-1 bg-white/5 text-green-300 rounded-full text-sm border border-white/10">{tech}</span>
                     ))}
                   </div>
-                  
-                  <div className="grid grid-cols-3 gap-6 mb-8">
-                    {Object.keys(project.metrics).map((key, i) => {
-                      const MetricIcon = project.metricIcons[key];
-                      return (
-                        <div className="text-center" key={i}>
-                          <div className="flex items-center justify-center gap-1 mb-2">
-                            <MetricIcon className="w-5 h-5 text-green-500" />
-                            <span className="text-green-500 font-bold text-lg">{project.metrics[key]}</span>
-                          </div>
-                          <span className="text-gray-500 text-sm">{project.metricLabels[key]}</span>
-                        </div>
-                      )
-                    })}
-                  </div>
-                  
-                  <div className="flex gap-4">
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 bg-green-500 text-black rounded-lg hover:bg-green-400 transition-colors font-semibold">
-                      <Eye className="w-4 h-4" />
-                      View Project
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
           ))}
         </div>
-
-      
       </div>
     </section>
   );
