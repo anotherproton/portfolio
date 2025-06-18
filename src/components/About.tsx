@@ -27,7 +27,7 @@ const TimelineItem = ({ icon: Icon, title, date, description, isVisible, delay }
   return (
     <div className={`relative pl-12 pb-10 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: delay }}>
       {/* The dot and line for the timeline */}
-      <div className="absolute left-0 top-1.5 h-full w-px bg-white/10"></div>
+      <div className="absolute left-0 top-1.5 w-px bg-white/10"></div>
       <div className="absolute left-[-5px] top-[5px] h-3 w-3 rounded-full bg-green-500 ring-4 ring-black"></div>
       
       <div className="absolute left-[-22px] top-0 bg-green-500/10 p-2 rounded-full">
