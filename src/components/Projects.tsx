@@ -59,9 +59,9 @@ const Projects = () => {
       timeline: 'Jan 2024 – May 2024',
       image: 'https://ik.imagekit.io/6cu3kzcxt/Reusable-leakproof-period-underwear-online-_-Mahina-06-15-2025_02_30_PM.png?updatedAt=1749978229279',
       link: 'https://mahina.co',
-      challenge: "Increase the store's Average Order Value (AOV) and streamline customer support for a growing D2C brand.",
-      action: "Built a fully custom Shopify theme from a Figma design, integrating strategic upsell/cross-sell features and a direct WhatsApp support channel.",
-      results: "The new theme and integrations led to significant improvements in both revenue and customer satisfaction.",
+      challenge: "Mahina was growing fast, but they needed help boosting their average order value and making customer support more efficient. The challenge was doing this without compromising their brand experience.",
+      action: "I built them a completely custom Shopify theme based on their Figma designs. The key was strategically placing upsell and cross-sell opportunities throughout the customer journey, plus integrating WhatsApp support so customers could get help instantly.",
+      results: "The results spoke for themselves - not only did we see a solid boost in revenue, but customer satisfaction improved too. It's always rewarding when you can help a brand grow while making their customers happier.",
       keyMetrics: [
         { icon: TrendingUp, value: '+28%', label: 'AOV Boost' },
         { icon: Zap, value: '95+', label: 'PageSpeed Score' },
@@ -75,9 +75,9 @@ const Projects = () => {
       timeline: 'Sep 2024 - Feb 2025',
       image: 'https://ik.imagekit.io/6cu3kzcxt/Best-Custom-DTF-Transfer-Printer-in-USA-_-We-Must-06-15-2025_02_31_PM.png?updatedAt=1749978229580',
       link: 'https://wemust.com',
-      challenge: "The complex DTF ordering process was causing high cart abandonment and required significant manual work for invoicing.",
-      action: "Engineered a dynamic order system with a live pricing calculator. Re-architected the cart logic and developed a custom invoice automation system.",
-      results: "The streamlined user experience and backend automation transformed operational efficiency and conversion rates.",
+      challenge: "WeMust had a problem - their custom printing ordering process was so complex that customers were abandoning their carts, and the team was drowning in manual invoicing work.",
+      action: "I built them a smart ordering system with live pricing calculations, completely rewrote their cart logic, and created an automated invoicing system that handles everything behind the scenes.",
+      results: "The difference was night and day, customers could finally complete their orders easily, and the team could focus on growing the business instead of manual paperwork",
        keyMetrics: [
         { icon: CheckCircle, value: '+20%', label: 'Checkout Rate' },
         { icon: TrendingUp, value: '-90%', label: 'Manual Work' },
@@ -90,9 +90,9 @@ const Projects = () => {
       timeline: 'Apr 2025 – Jun 2025',
       image: 'https://ik.imagekit.io/6cu3kzcxt/mum-uk-06-15-2025_02_31_PM.png?updatedAt=1749978229304',
       link: 'https://mum-uk.myshopify.com',
-      challenge: "Migrate a large-scale UK brand from Magento to Shopify Plus without losing data integrity, SEO rankings, or subscription customers.",
-      action: "Executed a full data migration, built a custom subscription model via Shopify APIs, and developed private apps for real-time inventory and user data sync.",
-      results: "A seamless transition to a more powerful, scalable platform with enhanced, custom-built subscription functionality.",
+      challenge: "Mum & You needed to move their entire UK operation from Magento to Shopify Plus - a massive undertaking that couldn't afford to lose any customer data, SEO rankings, or disrupt their subscription business.",
+      action: "I handled the complete migration, built a custom subscription system using Shopify APIs, and developed specialized apps to keep everything synced in real-time.",
+      results: "The migration went off without a hitch - they now have a more powerful platform that can scale with their growth, plus subscription features that work exactly how they need them to.",
        keyMetrics: [
         { icon: CheckCircle, value: 'Seamless', label: 'Data Migration' },
         { icon: TrendingUp, value: 'Custom', label: 'Subscription Flow' },
@@ -113,7 +113,7 @@ const Projects = () => {
             Featured <span className="text-gradient">Work</span>
           </h2>
           <p className="text-lg text-white/60 max-w-3xl mx-auto">
-            A showcase of projects where I solved complex challenges and delivered measurable results.
+            Here are some projects I'm really proud of. Each one came with its own unique challenges, and I loved finding creative solutions that actually moved the needle for these businesses.
           </p>
         </div>
 
