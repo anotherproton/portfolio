@@ -37,10 +37,10 @@ const LogoSlider = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Trusted by Industry <span className="text-gradient">Leaders</span>
+            Brands I've <span className="text-gradient">Worked With</span>
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            I've had the privilege of working with a diverse range of companies, from innovative startups to established brands.
+           I've been lucky to work with some amazing companies over the years - from scrappy startups to well-established brands.
           </p>
         </div>
 
