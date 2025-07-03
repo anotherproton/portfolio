@@ -40,12 +40,48 @@ const Testimonials = () => {
   const intervalRef = useRef(null);
   const sectionRef = useRef(null);
 
-  const testimonials = [
-    { name: 'Asha Mewara', role: 'Shopify Project Manager', company: 'Mahina.co', logo: 'https://ik.imagekit.io/6cu3kzcxt/Mahina_Logo_330x.avif?updatedAt=1749979000137', text: "Tanuj's expertise in theme development is remarkable. He took our Figma designs and turned them into a high-performing, beautiful theme. The new features have directly contributed to our AOV growth.", result: '+28% AOV' },
-    { name: 'Sarah Slate', role: 'Head of E-Commerce', company: 'Mum & You', logo: 'https://ik.imagekit.io/6cu3kzcxt/logo-mumandyoudotcom.webp?updatedAt=1749979000523', text: "The migration from Magento was a massive undertaking, and Tanuj handled it flawlessly. His work on our custom subscription model has been a game-changer for customer retention. A brilliant developer.", result: 'Custom Subscriptions' },
-    { name: 'Amit Kumar', role: 'Founder', company: 'WeMust.com', logo: 'https://ik.imagekit.io/6cu3kzcxt/We_Must_Logo_New.avif?updatedAt=1749979000620', text: "The automation system Tanuj built has saved countless hours of manual work. His ability to understand complex requirements and deliver an elegant solution is exactly what we needed.", result: '-90% Manual Work' },
-    { name: 'Kavya Sethi', role: 'E-commerce Manager', company: 'Nicobar.com', logo: 'https://ik.imagekit.io/6cu3kzcxt/nclogo.png?updatedAt=1749978988453', text: "Tanuj's performance optimizations had a direct impact on our site's speed. The custom filtering he implemented improved product discovery and our click-through rate saw a significant lift.", result: '+12% CTR' }
-  ];
+ const testimonials = [
+  { 
+    name: 'Rajesh Verma', 
+    role: 'Digital Marketing Head', 
+    company: 'Nicobar.com', 
+    logo: 'https://ik.imagekit.io/6cu3kzcxt/nclogo.png?updatedAt=1749978988453', 
+    text: "Working with Tanuj was a breath of fresh air. He completely revamped our product filtering system and the results were immediate. Our customers can now find exactly what they're looking for, and our conversion rates have never been better.", 
+    result: '+15% Conversions' 
+  },
+  { 
+    name: 'Priya Malhotra', 
+    role: 'E-commerce Manager', 
+    company: 'O&O', 
+    logo: 'https://ik.imagekit.io/6cu3kzcxt/OO-Logo.svg?updatedAt=1749992611749', 
+    text: "Tanuj didn't just build us a theme - he built us a solution. His understanding of our brand and customer journey was spot-on. The mobile experience he created has been a game-changer for our sales.", 
+    result: '+32% Mobile Sales' 
+  },
+  { 
+    name: 'Arjun Kapoor', 
+    role: 'Founder', 
+    company: 'Vserv', 
+    logo: 'https://ik.imagekit.io/6cu3kzcxt/without-mascot-light-bg.png?updatedAt=1749992611566', 
+    text: "I've worked with several developers before, but Tanuj's approach is different. He actually listens to what you need and delivers exactly that. The custom checkout flow he built for us has reduced our cart abandonment significantly.", 
+    result: '-25% Cart Abandonment' 
+  },
+  { 
+    name: 'Kavya Singh', 
+    role: 'Brand Manager', 
+    company: 'Summer Madras', 
+    logo: 'https://ik.imagekit.io/6cu3kzcxt/Untitled_Artwork_122.avif?updatedAt=1749992611380', 
+    text: "Tanuj transformed our slow, clunky store into something we're actually proud to show customers. The performance improvements speak for themselves, but what I love most is how easy it is for our team to manage everything now.", 
+    result: '40% Faster Load Times' 
+  },
+  { 
+    name: 'Rohit Sharma', 
+    role: 'Operations Head', 
+    company: 'Grodd', 
+    logo: 'https://ik.imagekit.io/6cu3kzcxt/download.png?updatedAt=1749992611427', 
+    text: "The inventory management system Tanuj built has been a lifesaver. We were drowning in manual updates before, but now everything syncs automatically. It's given us back hours every week to focus on growing the business.", 
+    result: 'Real-time Sync' 
+  }
+];
   
   // CONSOLIDATED STATS for a cleaner mobile layout
   const statsData = [
