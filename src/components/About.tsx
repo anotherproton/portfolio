@@ -78,9 +78,9 @@ const About = () => {
   ];
 
   const journeyData = [
-    { icon: GraduationCap, title: "B.Tech in Computer Science", date: "Foundation", description: "My journey began with a solid foundation in computer science, sparking a deep curiosity for web technologies and e-commerce." },
-    { icon: Code, title: "Specialized in E-commerce", date: "Focus", description: "I quickly gravitated towards the dynamic world of e-commerce, honing my skills in Shopify and WordPress to build scalable, user-centric online stores." },
-    { icon: Rocket, title: "Delivering High-Impact Solutions", date: "Growth", description: "Today, I partner with D2C & B2B brands, turning complex requirements into elegant, high-converting digital experiences that drive measurable results." }
+    { icon: GraduationCap, title: "B.Tech in Computer Science", date: "Foundation", description: "I started with a solid foundation in computer science, which sparked my curiosity about web technologies and how they could transform businesses online." },
+    { icon: Code, title: "Specialized in E-commerce", date: "Focus", description: "I quickly fell in love with e-commerce and dove deep into Shopify development. Over the past 3 years, I've focused on building stores that don't just look good—they perform brilliantly too." },
+    { icon: Rocket, title: "Delivering High-Impact Solutions", date: "Growth", description: "Today, I work with D2C and B2B brands across India, Canada, and the UK, helping them turn their online stores into conversion machines that drive real results." }
   ];
 
   return (
@@ -97,7 +97,7 @@ const About = () => {
             About <span className="text-gradient">Me</span>
           </h2>
           <p className="text-lg text-white/60 max-w-3xl mx-auto leading-relaxed">
-            I craft high-performance e-commerce experiences where beautiful design, clean code, and user-centric strategy converge.
+           I'm a Shopify developer who loves building stores that actually work for businesses. I combine clean design, solid code, and smart user experience to create stores that convert visitors into customers.
           </p>
         </div>
 
@@ -124,7 +124,7 @@ const About = () => {
           <div className="lg:col-span-3">
              {/* Glass Card for Skills */}
             <div className={`bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-2xl p-8 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} style={{transitionDelay: '200ms'}}>
-              <h3 className="text-3xl font-bold mb-8 text-white">What I Do Best</h3>
+              <h3 className="text-3xl font-bold mb-8 text-white">My Expertise</h3>
               <div className="space-y-6">
                 {skillsData.map((skill, index) => (
                   <SkillBar 
