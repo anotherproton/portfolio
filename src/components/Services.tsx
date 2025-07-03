@@ -61,37 +61,37 @@ const Services = () => {
     {
       icon: Palette,
       title: 'Custom Theme Development',
-      description: 'Building high-performing, responsive themes from scratch based on Figma designs, achieving 80+ Lighthouse scores.',
+      description: 'I build custom Shopify themes from your Figma designs that look amazing and perform brilliantly. My themes consistently hit 80+ Lighthouse scores because speed matters for conversions.',
       features: ['Figma to Liquid', 'Mobile-First UX', 'Theme Optimization', 'Custom Sections'],
     },
     {
       icon: Zap,
       title: 'Performance Optimization',
-      description: 'Proven record of reducing load times by up to 45% through script deferrals, asset compression, and achieving 95+ PageSpeed scores.',
+      description: 'Ive helped stores cut their load times by up to 45% using smart optimizations like script deferrals and asset compression. Fast sites sell more - its that simple.',
       features: ['PageSpeed Enhancement', 'Script Deferrals', 'Asset Compression', 'A/B Testing'],
     },
     {
       icon: Code2,
       title: 'Private App Development',
-      description: 'Developing private Shopify apps to sync real-time inventory and create custom subscription models using the Shopify API.',
+      description: 'I create custom Shopify apps when you need something specific that doesnt exist yet. Whether its syncing inventory in real-time or building subscription flows, Ive got you covered.',
       features: ['Shopify API Integration', 'Inventory & Data Sync', 'Subscription Flows', 'Bespoke Cart Logic'],
     },
     {
       icon: TrendingUp,
       title: 'Conversion & AOV Strategy',
-      description: 'Boosting AOV by up to 28% and mobile conversions by 30% through strategic UX revamps and upsell integrations.',
+      description: 'I help stores increase their average order value by up to 28% through smart UX improvements and strategic upsell placements. Every visitor should be worth more to your business.',
       features: ['AOV Strategy', 'UX Revamps', 'Upsell & Bundle Integrations', 'Checkout Customization'],
     },
     {
       icon: Database,
       title: 'Migration Services',
-      description: 'Seamlessly migrating brands from platforms like Magento to Shopify, preserving SEO URLs and ensuring complete data integrity.',
+      description: 'Moving to Shopify from another platform? I handle everything - from preserving your SEO rankings to making sure not a single customer record gets lost in the process.',
       features: ['Magento to Shopify', 'Preserve SEO URLs', 'Data Integrity', 'Zero Downtime Strategy'],
     },
     {
       icon: Briefcase,
       title: 'Project Ownership & QA',
-      description: 'Handling end-to-end project ownership, from client communication and requirement gathering to execution and final delivery.',
+      description: 'I take full ownership of your project from start to finish. You will always know whats happening, when its happening, and you can trust that everything will be delivered exactly as promised',
       features: ['Client Communication', 'Requirement Gathering', 'Execution & Delivery', 'Thorough QA'],
     }
   ];
@@ -112,7 +112,7 @@ const Services = () => {
             My <span className="text-gradient">Services</span>
           </h2>
           <p className="text-lg text-white/60 max-w-3xl mx-auto">
-            A suite of specialized Shopify services designed to build, optimize, and scale your e-commerce business.
+            Here's how I can help your business grow. I've focused my expertise on the areas that really make a difference for Shopify stores.
           </p>
         </div>
 
@@ -134,7 +134,7 @@ const Services = () => {
                 onClick={handleScrollToContact} 
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-green-600 text-white rounded-lg font-semibold transition-all duration-300 transform hover:bg-green-500 hover:scale-105 shadow-lg shadow-green-600/20"
             >
-                Let's Get in Touch
+                Let's Chat About It
                 <ArrowDown className="w-5 h-5" />
             </button>
         </div>
