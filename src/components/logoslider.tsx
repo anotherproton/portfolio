@@ -1,7 +1,6 @@
 import React from 'react';
 
 const LogoSlider = () => {
-  // Array of logos updated with the URLs you provided.
   const logos = [
     { name: 'Mahina', url: 'https://ik.imagekit.io/6cu3kzcxt/Mahina_Logo_330x.avif?updatedAt=1749979000137' },
     { name: 'Mum & You', url: 'https://ik.imagekit.io/6cu3kzcxt/logo-mumandyoudotcom.webp?updatedAt=1749979000523' },
@@ -14,61 +13,76 @@ const LogoSlider = () => {
     { name: 'Summer Madras', url: 'https://ik.imagekit.io/6cu3kzcxt/Untitled_Artwork_122.avif?updatedAt=1749992611380' },
   ];
 
-  // This style block contains the animation keyframes.
-  // Using a style tag is a reliable way to ensure animations work in various environments.
   const styles = `
     @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .logo-slider {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      width: 100%;
+      background: #fff;
+      padding: 20px 0;
+    }
+
+    .slider-track {
+      display: flex;
+      width: calc(200%); /* Because logos are duplicated */
+      animation: scroll 30s linear infinite;
+    }
+
+    .logo-item {
+      flex: 0 0 auto;
+      width: 160px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-item img {
+      max-width: 100%;
+      max-height: 60px;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      .logo-item {
+        width: 30vw; /* 3-4 logos in one view */
+        padding: 0 10px;
       }
     }
 
-    .animate-scroll {
-      animation: scroll 30s linear infinite;
+    @media (max-width: 480px) {
+      .logo-item {
+        width: 40vw;
+      }
     }
   `;
 
   return (
-    <section id="logo-slider" className="section-padding bg-black">
+    <div className="logo-slider-wrapper">
       <style>{styles}</style>
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Brands I've <span className="text-gradient">Worked With</span>
-          </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-           I've been lucky to work with some amazing companies over the years - from scrappy startups to well-established brands.
-          </p>
-        </div>
+      <h2 style={{ textAlign: 'center', fontSize: '24px', marginBottom: '10px' }}>
+        Brands I've Worked With
+      </h2>
+      <p style={{ textAlign: 'center', marginBottom: '20px' }}>
+        I’ve been lucky to work with some amazing companies over the years – from scrappy startups to well-established brands.
+      </p>
 
-        {/* The marquee effect is created by having a container with 'overflow-hidden' 
-          and an inner track that contains two sets of the logos. 
-          The animation slides the track horizontally.
-        */}
-        <div 
-          className="relative w-full overflow-hidden"
-          style={{ 
-            maskImage: 'linear-gradient(to right, transparent, white 10%, white 90%, transparent)'
-          }}
-        >
-          <div className="flex w-max animate-scroll">
-            {/* The logos are duplicated to create a seamless loop */}
-            {[...logos, ...logos].map((logo, index) => (
-              <div key={index} className="flex-shrink-0 w-48 mx-4 flex items-center justify-center h-20">
-                <img
-                  src={logo.url}
-                  alt={logo.name}
-                  className="max-h-12 w-auto object-contain transition-all duration-300"
-                />
-              </div>
-            ))}
-          </div>
+      <div className="logo-slider">
+        <div className="slider-track">
+          {[...logos, ...logos].map((logo, index) => (
+            <div className="logo-item" key={index}>
+              <img src={logo.url} alt={logo.name} title={logo.name} />
+            </div>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
