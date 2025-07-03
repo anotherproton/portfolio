@@ -63,7 +63,7 @@ const Hero = () => {
     const [isAnimatingRole, setIsAnimatingRole] = useState(false);
     const [parallaxOffset, setParallaxOffset] = useState({ x: 0, y: 0 });
 
-    const roles = ['Shopify Developer', 'Frontend Specialist', 'E-commerce Expert', 'Performance Optimizer'];
+    const roles = ['Shopify Developer', 'Store Speed Specialist', 'UI/UX Developer', 'E-commerce Growth Partner'];
     const name = "Tanuj Rajput";
 
     useEffect(() => {
@@ -173,7 +173,7 @@ const Hero = () => {
                             <span key={currentRole} className={`role-text-anim absolute w-full left-0 right-0 ${isAnimatingRole ? 'role-out' : 'role-in'} text-gradient`}>{roles[currentRole]}</span>
                         </div>
                         <p className={`text-base md:text-lg text-white/70 mt-6 max-w-2xl mx-auto leading-relaxed char-animate opacity-0`} style={{ animationDelay: `${name.length * 50 + 100}ms` }}>
-                            I craft high-performance, conversion-focused Shopify stores that captivate users and drive growth for ambitious brands.
+                           I build Shopify stores that perform. With 3 years of experience working with brands across India, Canada, and the UK, I focus on creating stores that look great and convert visitors into customers.
                         </p>
                     </div>
 
@@ -195,7 +195,7 @@ const Hero = () => {
 
                     <div className={`flex flex-col sm:flex-row gap-4 justify-center animate-pop-in opacity-0`} style={{ animationDelay: '1200ms' }}>
                         <button onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })} className="btn-primary-glow px-8 py-3 rounded-lg font-semibold text-white flex items-center justify-center gap-2.5 transition-all duration-300 transform hover:scale-105">
-                            View My Work <MoveRight className="w-5 h-5" />
+                            See What I've Built <MoveRight className="w-5 h-5" />
                         </button>
                         <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="px-8 py-3 rounded-lg font-semibold text-white/80 border-2 border-white/20 hover:border-white/40 hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
                             Let's Connect
